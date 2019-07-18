@@ -4,7 +4,7 @@ echo
 echo "============ install supervisord service ==============="
 echo
 
-if [ "${SUPERVIOSORD_INSTALL}" == true ]; then
+if [ "${SUPERVISORD_INSTALL}" == true ]; then
     echo "---------- Install supervisor ----------"
     apk add --no-cache supervisor
 

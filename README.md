@@ -1,4 +1,4 @@
-集成了多个服务，目前有nginx、php72、php56、mysql、mongodb、redis、rabbitmq、phpredisadmin、supervisord(安装在php容器中，如不需要，请到)。请查看docker-compose-sample.yml文件，如果不需要那么多服务注释掉相应的服务即可。这些服务的配置都在.env.sample文件中，请认真查看.如果不需要那么多的服务，可以在docker-compose.yml删除掉
+集成了多个服务，目前有nginx、php72、php56、mysql、mongodb、redis、rabbitmq、phpredisadmin、supervisord(安装在php容器中，如不需要，请到)。请查看docker-compose-sample.yml文件，如果不需要那么多服务注释掉相应的服务即可。这些服务的配置都在.env.sample文件中，请认真查看.如果不需要那么多的服务，可以在docker-compose.yml配置文件删除掉
 
 # 目录
 - [1.目录结构](#1目录结构)
@@ -133,17 +133,21 @@ alias dredis='docker exec -it dnmp_redis_1 /bin/sh'
 其它的服务一样，自行设置
 
 ## 5.使用Log
-Log文件生成的位置依赖于conf下各log配置的值。<br/>
+Log文件生成的位置依赖于conf下各log配置的值。
+
 有些软件的log不在log目录，是因为有些软件的log是跟data目录存放在一起的，例如：
-构建MySQL时，已经映射了整个mysql目录，mysql.error.log和mysql.slow.log在data目录的mysql目录下。<br/>
+构建MySQL时，已经映射了整个mysql目录，mysql.error.log和mysql.slow.log在data目录的mysql目录下。
+
 PHP-FPM的日志会输出到Nginx的日志中，所以无需配置它的日志目录
 
 ## 6.PHP镜像选择
-PHP镜像支持多个版本，可以查看：https://github.com/docker-library/repo-info/tree/master/repos/php/remote。<br/>
+PHP镜像支持多个版本，可以查看：https://github.com/docker-library/repo-info/tree/master/repos/php/remote
+
 如果你用swoole不需要php-fpm的话，可以使用7.2-cli-alpine，如果需要php-fpm则用7.2-fpm-alpine。
 
 ## 7.存在问题
-1：目前在dockerfile/php/Dockerfile文件中，无法使用$(nproc)，使用会报错，无法拿到cpu的数目<br/>
+1：目前在dockerfile/php/Dockerfile文件中，无法使用$(nproc)，使用会报错，无法拿到cpu的数目
+
 2：supervisord脚本安装时，启动无效果，需要进入容器启动才行
 
 

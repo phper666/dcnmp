@@ -11,6 +11,7 @@ services:
     volumes:
       - ${SOURCE_DIR}:/var/www/html/:rw
       - ${CONF_DIR}/nginx/conf.d:/etc/nginx/conf.d/:rw
+      - ${CONF_DIR}/nginx/vhost:/etc/nginx/vhost:rw
       - ${CONF_DIR}/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - ${LOG_DIR}/nginx:/var/log/nginx/:rw
     restart: always
