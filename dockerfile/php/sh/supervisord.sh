@@ -21,6 +21,4 @@ if [ "${SUPERVISORD_INSTALL}" == true ]; then
     supervisorctl reread
     supervisorctl update
     supervisorctl restart all
-    supervisord -c /etc/supervisord.conf
-    supervisorctl restart allphp
 fi

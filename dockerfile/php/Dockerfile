@@ -25,7 +25,6 @@ WORKDIR /tmp/extensions
 #使用$(nproc)会出现错误，现在还找不到解决方法，下面的数值是你的cpu核数
 ENV MC="-j4"
 ENV EXTENSIONS=",${PHP_EXTENSIONS},"
-ENV SUPERVISORD_INSTALL="${SUPERVISORD_INSTALL}"
 
 RUN chmod +x install.sh && chmod +x "${MORE_EXTENSION_INSTALLER}" && chmod +x supervisord.sh
 RUN sh install.sh && sh "${MORE_EXTENSION_INSTALLER}" && sh supervisord.sh
