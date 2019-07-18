@@ -1,17 +1,17 @@
 #!/bin/bash
 
-echo
-echo "============ install supervisord service ==============="
-echo
-
 if [ "${SUPERVISORD_INSTALL}" == true ]; then
+    echo
+    echo "============ install supervisord service ==============="
+    echo
     echo "---------- Install supervisor ----------"
     apk add --no-cache supervisor
 
     echo
     echo "============ mkdir supervisor ==============="
     echo
-    mkdir /var/run/supervisor
+    mkdir /var/run/supervisord
+    mkdir /var/log/supervisord
 
     echo
     echo "============ start supervisord service ==============="
@@ -21,4 +21,6 @@ if [ "${SUPERVISORD_INSTALL}" == true ]; then
     supervisorctl reread
     supervisorctl update
     supervisorctl restart all
+    supervisord -c /etc/supervisord.conf
+    supervisorctl restart allphp
 fi

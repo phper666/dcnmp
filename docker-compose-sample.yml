@@ -38,7 +38,7 @@ services:
       - ${CONF_DIR}/supervisord/supervisord.d:/etc/supervisord.d:rw
       - ${CONF_DIR}/supervisord/supervisord.conf:/etc/supervisord.conf:rw
       - ${LOG_DIR}/php72:/var/log/php:rw
-      - ${LOG_DIR}/supervisor/supervisord.log:/var/log/supervisord.log:rw
+      - ${LOG_DIR}/supervisord:/var/log/supervisord:rw
     restart: always
     stdin_open: true
     tty: true
@@ -64,7 +64,7 @@ services:
       - ${CONF_DIR}/supervisord/supervisord.d:/etc/supervisord.d:rw
       - ${CONF_DIR}/supervisord/supervisord.conf:/etc/supervisord.conf:rw
       - ${LOG_DIR}/php56:/var/log/php:rw
-      - ${LOG_DIR}/supervisor/supervisord.log:/var/log/supervisord.log:rw
+      - ${LOG_DIR}/supervisord:/var/log/supervisord:rw
     restart: always
     stdin_open: true
     tty: true
