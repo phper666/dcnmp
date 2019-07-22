@@ -1,6 +1,7 @@
 ARG NGINX_VERSION
 FROM nginx:${NGINX_VERSION}
 
+
 # apk update && install bash
 RUN apk update \
         && apk upgrade \

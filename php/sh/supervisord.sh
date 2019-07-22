@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ "${SUPERVISORD_INSTALL}" == true ]; then
+if [ "${PHP_SUPERVISORD_INSTALL}" == true ]; then
     echo
     echo "============ install supervisord service ==============="
     echo

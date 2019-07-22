@@ -1,4 +1,4 @@
-集成了多个服务，目前有nginx、php72、php56、mysql、mongodb、redis、rabbitmq、phpredisadmin、supervisord(安装在php容器中，如不需要，请到)。请查看docker-compose-sample.yml文件，如果不需要那么多服务注释掉相应的服务即可。这些服务的配置都在.env.sample文件中，请认真查看.如果不需要那么多的服务，可以在docker-compose.yml配置文件删除掉
+集成了多个服务，目前有nginx、php、mysql、mongodb、redis、rabbitmq、phpredisadmin、supervisord(安装在php容器中)。
 
 # 目录
 - [1.目录结构](#1目录结构)
@@ -15,11 +15,10 @@
 
 ```
 /
-├── conf                                配置文件目录
-│   ├── mysql                           MySQL目录
-│   │    └── mysql.cnf                  MySQL用户配置文件
-│   ├── nginx                           Nginx目录
-│   │    ├── conf.d                     Nginx配置目录
+├── mongodb                             Mongodb目录
+│   └── Dockerfile                      Mongodb构建文件
+├── Mysql                               Mysql目录
+│   ├── conf                            Mysql配置文件目录
 │   │    │    └── certs                 Https站点证书目录
 │   │    ├── vhost                      Nginx用户站点配置目录
 │   │    │    ├── localhost.conf        Nginx用户站点配置目录

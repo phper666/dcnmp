@@ -11,9 +11,8 @@ services:
       - "${NGINX_HTTPS_HOST_PORT}:443"
     volumes:
       - ${CODE_PATH}:/var/www/html/:rw
-      - ${CONF_PATH}/nginx/conf/conf.d:/etc/nginx/conf.d:rw
-      - ${CONF_PATH}/nginx/conf/vhost:/etc/nginx/vhost:rw
-      - ${CONF_PATH}/nginx/conf/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ${CONF_PATH}/nginx/conf.d:/etc/nginx/conf.d:rw
+      - ${CONF_PATH}/nginx/vhost:/etc/nginx/vhost:rw
       - ${LOG_PATH}/nginx:/var/log/nginx/:rw
     stdin_open: true
     tty: true
@@ -38,10 +37,7 @@ services:
       - "${PHP_HOST_PORT_18306}:18306"
     volumes:
       - ${CODE_PATH}:/var/www/html/:rw
-      - ${CONF_PATH}/php/conf/php.ini:/usr/local/etc/php/php.ini:ro
-      - ${CONF_PATH}/php/conf/php-fpm.conf:/usr/local/etc/php-fpm.d/www.conf:rw
-      - ${CONF_PATH}/php/conf/supervisord/supervisord.d:/etc/supervisord.d:rw
-      - ${CONF_PATH}/php/conf/supervisord/supervisord.conf:/etc/supervisord.conf:rw
+      - ${CONF_PATH}/php/supervisord/supervisord.d:/etc/supervisord.d:rw
       - ${LOG_PATH}/${PHP_VERSION}:/var/log/php:rw
       - ${LOG_PATH}/supervisord:/var/log/supervisord:rw
     restart: always
@@ -61,7 +57,6 @@ services:
     ports:
       - "${MYSQL_HOST_PORT}:3306"
     volumes:
-      - ${CONF_PATH}/mysql/conf/mysql.cnf:/etc/mysql/conf.d/mysql.cnf:rw
       - ${DATA_PATH}/mysql:/var/lib/mysql/:rw
       - ${LOG_PATH}/mysql:/var/log/mysql:rw
     restart: always
@@ -101,7 +96,6 @@ services:
     ports:
       - "${REDIS_HOST_PORT}:6379"
     volumes:
-      - ${CONF_PATH}/redis/conf/redis.conf:/etc/redis.conf:rw
       - ${DATA_PATH}/redis:/data
     restart: always
     stdin_open: true

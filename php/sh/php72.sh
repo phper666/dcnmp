@@ -10,24 +10,21 @@ echo "Work directory            : ${PWD}"
 echo "============================================"
 echo
 
+ls -l /tmp/extensions
 
 if [ -z "${EXTENSIONS##*,mcrypt,*}" ]; then
-    echo "---------- Install mcrypt ----------"
-    apk add --no-cache libmcrypt-dev \
-    && docker-php-ext-install ${MC} mcrypt
+    echo "---------- mcrypt was REMOVED from PHP 7.2.0 ----------"
 fi
 
 
 if [ -z "${EXTENSIONS##*,mysql,*}" ]; then
-    echo "---------- Install mysql ----------"
-    docker-php-ext-install ${MC} mysql
+    echo "---------- mysql was REMOVED from PHP 7.0.0 ----------"
 fi
 
 
 if [ -z "${EXTENSIONS##*,sodium,*}" ]; then
     echo "---------- Install sodium ----------"
-    apk add --no-cache libsodium-dev
-	docker-php-ext-install ${MC} sodium
+    echo "Sodium is bundled with PHP from PHP 7.2.0 "
 fi
 
 if [ -z "${EXTENSIONS##*,amqp,*}" ]; then
@@ -50,7 +47,7 @@ fi
 if [ -z "${EXTENSIONS##*,memcached,*}" ]; then
     echo "---------- Install memcached ----------"
 	apk add --no-cache libmemcached-dev zlib-dev
-    printf "\n" | pecl install memcached-2.2.0
+    printf "\n" | pecl install memcached-3.1.3
     docker-php-ext-enable memcached
 fi
 
@@ -58,26 +55,30 @@ fi
 if [ -z "${EXTENSIONS##*,xdebug,*}" ]; then
     echo "---------- Install xdebug ----------"
     mkdir xdebug \
-    && tar -xf xdebug-2.5.5.tgz -C xdebug --strip-components=1 \
+    && tar -xf xdebug-2.6.1.tgz -C xdebug --strip-components=1 \
     && ( cd xdebug && phpize && ./configure && make ${MC} && make install ) \
     && docker-php-ext-enable xdebug
 fi
 
 
 if [ -z "${EXTENSIONS##*,swoole,*}" ]; then
-    echo "---------- Install swoole ----------"
+    echo "---------- Install swoole(${PHP_SWOOLE_VERSION})----------"
     mkdir swoole \
-    && tar -xf "${SWOOLE_VERSION}" -C swoole --strip-components=1 \
+    && tar -zxvf "${PHP_SWOOLE_VERSION}" -C swoole --strip-components=1 \
     && ( cd swoole && phpize && ./configure --enable-openssl && make ${MC} && make install ) \
     && docker-php-ext-enable swoole
 fi
 
 if [ -z "${EXTENSIONS##*,pdo_sqlsrv,*}" ]; then
     echo "---------- Install pdo_sqlsrv ----------"
-	echo "pdo_sqlsrv requires PHP >= 7.1.0, installed version is ${PHP_VERSION}"
+	apk add --no-cache unixodbc-dev
+    pecl install pdo_sqlsrv
+    docker-php-ext-enable pdo_sqlsrv
 fi
 
 if [ -z "${EXTENSIONS##*,sqlsrv,*}" ]; then
     echo "---------- Install sqlsrv ----------"
-	echo "pdo_sqlsrv requires PHP >= 7.1.0, installed version is ${PHP_VERSION}"
+	apk add --no-cache unixodbc-dev
+    printf "\n" | pecl install sqlsrv
+    docker-php-ext-enable sqlsrv
 fi
