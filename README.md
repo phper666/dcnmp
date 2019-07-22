@@ -1,3 +1,4 @@
+因为重构过项目，文档稍后补上。
 集成了多个服务，目前有nginx、php、mysql、mongodb、redis、rabbitmq、phpredisadmin、supervisord(安装在php容器中)。
 
 # 目录
