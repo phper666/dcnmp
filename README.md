@@ -119,7 +119,7 @@ PHP镜像支持多个版本，可以查看：https://github.com/docker-library/r
 如果你用swoole不需要php-fpm的话，可以使用7.2-cli-alpine，如果需要php-fpm则用7.2-fpm-alpine。
 
 ## 7.存在问题
-1：目前在dockerfile/php/Dockerfile文件中，无法使用$(nproc)，使用会报错，无法拿到cpu的数目
+1：目前在/php/Dockerfile文件中，无法使用$(nproc)，使用会报错，无法拿到cpu的数目
 
 2：supervisord脚本安装时，启动无效果，需要进入容器启动才行
 
