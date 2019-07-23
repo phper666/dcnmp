@@ -98,13 +98,13 @@ alias dredis='docker exec -it dnmp_redis_1 /bin/sh'
 
 ## 5.配置文件说明
 主要说明几个全局变量：
-# php项目代码存放路径，一般映射在宿主机/app目录下
+// php项目代码存放路径，一般映射在宿主机/app目录下
 CODE_PATH=/app/www
-# 各个服务软件的数据备份，比如mysql、redis等等，防止容器挂后数据不见的问题
+// 各个服务软件的数据备份，比如mysql、redis等等，防止容器挂后数据不见的问题
 DATA_PATH=/app/data
-# 各个服务的配置,放在当前目录下每个服务目录的conf目录中
+// 各个服务的配置,放在当前目录下每个服务目录的conf目录中
 CONF_PATH=./
-# 各个服务的log
+// 各个服务的log
 LOG_PATH=/app/log
 
 php项目代码、各服务的数据备份、各服务的日志都统一放在放在宿主机/app目录下，方便统一管理。
