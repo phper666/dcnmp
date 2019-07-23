@@ -97,6 +97,7 @@ alias dredis='docker exec -it dnmp_redis_1 /bin/sh'
 其它的服务一样，自行设置
 
 ## 5.配置文件说明
+```bash
 主要说明几个全局变量：
 // php项目代码存放路径，一般映射在宿主机/app目录下
 CODE_PATH=/app/www
@@ -106,9 +107,11 @@ DATA_PATH=/app/data
 CONF_PATH=./
 // 各个服务的log
 LOG_PATH=/app/log
-
+```
 php项目代码、各服务的数据备份、各服务的日志都统一放在放在宿主机/app目录下，方便统一管理。
-你也可以把配置也放到这个/app目录下，如果放到/app目录下，需要你提前把所有的服务目录下的conf目录中的所有文件都要复制到/app/conf/xxx服务名。例如：mysql的配置复制到/app目录下，则为/app/conf/mysql/服务目录下的conf的所有目录文件。然后修改配置文件CONF_PATH=/app/conf
+你也可以把配置也放到这个/app目录下，如果放到/app目录下，需要你提前把所有的服务目录下的conf目录中的所有文件都要复制到/app/conf/xxx服务名。
+
+例如：mysql的配置复制到/app目录下，则为/app/conf/mysql/服务目录下的conf的所有目录文件。然后修改配置文件CONF_PATH=/app/conf
 
 ## 6.PHP镜像选择
 PHP镜像支持多个版本，可以查看：https://github.com/docker-library/repo-info/tree/master/repos/php/remote
