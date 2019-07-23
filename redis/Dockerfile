@@ -1,6 +1,9 @@
 ARG REDIS_VERSION
 FROM redis:${REDIS_VERSION}
 
+ARG ALPINE_REPOSITORIES
+
+RUN sed -i "s/dl-cdn.alpinelinux.org/${ALPINE_REPOSITORIES}/g" /etc/apk/repositories
 
 # apk update && install bash
 RUN apk update \

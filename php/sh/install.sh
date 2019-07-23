@@ -11,8 +11,8 @@ echo "============================================"
 echo
 
 
-if [ "${PHP_ALPINE_REPOSITORIES}" != "" ]; then
-    sed -i "s/dl-cdn.alpinelinux.org/${PHP_ALPINE_REPOSITORIES}/g" /etc/apk/repositories
+if [ "${ALPINE_REPOSITORIES}" != "" ]; then
+    sed -i "s/dl-cdn.alpinelinux.org/${ALPINE_REPOSITORIES}/g" /etc/apk/repositories
 fi
 
 
