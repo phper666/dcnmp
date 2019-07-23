@@ -63,7 +63,7 @@ services:
       - "${MYSQL_HOST_PORT}:3306"
     volumes:
       - ${CONF_PATH}/mysql/conf/mysql.cnf:/etc/mysql/conf.d/mysql.cnf:rw
-      - ${DATA_PATH}/mysql:/var/lib/mysql/:rw
+      - ${DATA_PATH}/mysql:/var/lib/mysql:rw
       - ${LOG_PATH}/mysql:/var/log/mysql:rw
     restart: always
     environment:
@@ -104,7 +104,7 @@ services:
       - "${REDIS_HOST_PORT}:6379"
     volumes:
       - ${CONF_PATH}/redis/conf/redis.conf:/etc/redis.conf:rw
-      - ${DATA_PATH}/redis:/data
+      - ${DATA_PATH}/redis:/data:rw
     restart: always
     stdin_open: true
     tty: true
@@ -125,7 +125,7 @@ services:
       - RABBITMQ_DEFAULT_USER="${RABBITMQ_DEFAULT_USER}"
       - RABBITMQ_DEFAULT_PASS="${RABBITMQ_DEFAULT_PASS}"
     volumes:
-      - ${LOG_PATH}/rabbitmq:/var/log/rabbitmq
+      - ${LOG_PATH}/rabbitmq:/var/log/rabbitmq:rw
       - ${DATA_PATH}/rabbitmq:/var/lib/rabbitmq:rw
     stdin_open: true
     tty: true
