@@ -19,7 +19,7 @@ services:
     tty: true
     restart: always
     networks:
-      - dnmp
+      - dcnmp
 
   php72:
     build:
@@ -50,7 +50,7 @@ services:
     cap_add:
       - SYS_PTRACE
     networks:
-      - dnmp
+      - dcnmp
 
   mysql:
     build:
@@ -68,7 +68,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
     networks:
-      - dnmp
+      - dcnmp
 
   mongodb:
     build:
@@ -88,7 +88,7 @@ services:
     stdin_open: true
     tty: true
     networks:
-      - dnmp
+      - dcnmp
     command:
       --auth
 
@@ -109,7 +109,7 @@ services:
     tty: true
     entrypoint: ["redis-server", "/etc/redis.conf"]
     networks:
-      - dnmp
+      - dcnmp
 
   rabbitmq:
     build:
@@ -130,7 +130,7 @@ services:
     tty: true
     restart: always
     networks:
-      - dnmp
+      - dcnmp
 
   phpredisadmin:
     build:
@@ -144,7 +144,7 @@ services:
       - REDIS_1_HOST=redis
       - REDIS_1_PORT=6379
     networks:
-      - dnmp
+      - dcnmp
 
 networks:
-  dnmp:
+  dcnmp:
