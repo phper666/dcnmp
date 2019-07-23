@@ -6,6 +6,7 @@ services:
       args:
         NGINX_VERSION: ${NGINX_VERSION}
         CONF_PATH: ${CONF_PATH}
+        ALPINE_REPOSITORIES: ${ALPINE_REPOSITORIES}
     ports:
       - "${NGINX_HTTP_HOST_PORT}:80"
       - "${NGINX_HTTPS_HOST_PORT}:443"
