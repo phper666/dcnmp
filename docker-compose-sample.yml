@@ -5,7 +5,6 @@ services:
       context: nginx
       args:
         NGINX_VERSION: ${NGINX_VERSION}
-        CONF_PATH: ${CONF_PATH}
         ALPINE_REPOSITORIES: ${ALPINE_REPOSITORIES}
     ports:
       - "${NGINX_HTTP_HOST_PORT}:80"
@@ -32,7 +31,6 @@ services:
         PHP_MORE_EXTENSION_INSTALLER: ${PHP_MORE_EXTENSION_INSTALLER}
         PHP_SWOOLE_VERSION: ${PHP_SWOOLE_VERSION}
         PHP_SUPERVISORD_INSTALL: ${PHP_SUPERVISORD_INSTALL}
-        CONF_PATH: ${CONF_PATH}
     ports:
       - "${PHP_HOST_PORT_9000}:9000"
       - "${PHP_HOST_PORT_9501}:9501"
@@ -58,7 +56,6 @@ services:
       context: mysql
       args:
         MYSQL_VERSION: ${MYSQL_VERSION}
-        CONF_PATH: ${CONF_PATH}
     ports:
       - "${MYSQL_HOST_PORT}:3306"
     volumes:
@@ -76,7 +73,6 @@ services:
       context: mongodb
       args:
         MONGODB_VERSION: ${MONGODB_VERSION}
-        CONF_PATH: ${CONF_PATH}
     environment:
       MONGO_INITDB_ROOT_USERNAME: "${MONGODB_INITDB_ROOT_USERNAME}"
       MONGO_INITDB_ROOT_PASSWORD: "${MONGODB_INITDB_ROOT_PASSWORD}"
@@ -98,7 +94,6 @@ services:
       context: redis
       args:
         REDIS_VERSION: ${REDIS_VERSION}
-        CONF_PATH: ${CONF_PATH}
         ALPINE_REPOSITORIES: ${ALPINE_REPOSITORIES}
     ports:
       - "${REDIS_HOST_PORT}:6379"
@@ -117,7 +112,6 @@ services:
       context: rabbitmq
       args:
         RABBITMQ_VERSION: ${RABBITMQ_VERSION}
-        CONF_PATH: ${CONF_PATH}
     ports:
       - "${RABBITMQ_HOST_PORT_C}:5672"
       - "${RABBITMQ_HOST_PORT_S}:15672"
@@ -138,7 +132,6 @@ services:
       context: phpredisadmin
       args:
         REDISMYADMIN_VERSION: ${REDISMYADMIN_VERSION}
-        CONF_PATH: ${CONF_PATH}
     ports:
       - "${REDISMYADMIN_HOST_PORT}:80"
     environment:
