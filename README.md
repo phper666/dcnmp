@@ -1,6 +1,3 @@
-#QQ交流群
-125237326
-
 集成了多个服务，目前有nginx、php、mysql、mongodb、redis、rabbitmq、phpredisadmin、supervisord(安装在php容器中)。如果你想支持更多的服务，可以参考原有的服务目录结构、env.sample配置、docker-compose-sample.yml配置
 
 # 目录
@@ -128,5 +125,7 @@ PHP镜像支持多个版本，可以查看：https://github.com/docker-library/r
 
 3：如果mysql启动不成功，查看容器报错为：[ERROR] Could not open file '/var/log/mysql/mysql.error.log' for error logging: Permission denied
 则需要你删除映射的/app/log/mysql目录，然后重新开启容器
+
+4：swoole扩展偶尔安装不上去，是因为可能文件损坏，请到https://github.com/swoole/swoole-src/releases 下载对应的版本
 
 

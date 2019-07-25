@@ -4,7 +4,7 @@ echo
 echo "============================================"
 echo "Install extensions from   : ${MORE_EXTENSION_INSTALLER}"
 echo "PHP version               : ${PHP_VERSION}"
-echo "Extra Extensions          : ${PHP_EXTENSIONS}"
+echo "Extra Extensions          : ${EXTENSIONS}"
 echo "Multicore Compilation     : ${MC}"
 echo "Work directory            : ${PWD}"
 echo "============================================"
