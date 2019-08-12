@@ -140,5 +140,22 @@ services:
     networks:
       - dcnmp
 
+  nodejs:
+    build:
+      context: nodejs
+      args:
+        ALPINE_REPOSITORIES: ${ALPINE_REPOSITORIES}
+        NODEJS_VERSION: ${NODEJS_VERSION}
+    ports:
+      - "${NODEJS_HOST_PORT_3000}:3000"
+      - "${NODEJS_HOST_PORT_8088}:8088"
+    volumes:
+      - ${CODE_PATH}:/var/www/html/:rw
+    restart: always
+    stdin_open: true
+    tty: true
+    networks:
+      - dcnmp
+
 networks:
   dcnmp:
