@@ -76,10 +76,10 @@ services:
       context: mongodb
       args:
         MONGODB_VERSION: ${MONGODB_VERSION}
-        TZ: ${TZ}
     environment:
       MONGO_INITDB_ROOT_USERNAME: "${MONGODB_INITDB_ROOT_USERNAME}"
       MONGO_INITDB_ROOT_PASSWORD: "${MONGODB_INITDB_ROOT_PASSWORD}"
+      TZ: ${TZ}
     volumes:
       - ${DATA_PATH}/mongo:/data/db:rw
       - ${DATA_PATH}/mongo/mongo_key:/mongo:rw
