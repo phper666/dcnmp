@@ -10,7 +10,7 @@ RUN sed -i "s/dl-cdn.alpinelinux.org/${ALPINE_REPOSITORIES}/g" /etc/apk/reposito
 RUN apk update \
         && apk add --no-cache bash bash-doc bash-completion git python make openssl tar gcc tzdata \
         && cp "/usr/share/zoneinfo/$TZ" /etc/localtime \
-        && echo "$TZ" > /etc/timezone
+        && echo "$TZ" > /etc/timezone \
         && rm -rf /var/cache/apk/*
 
 RUN npm install -g pm2
