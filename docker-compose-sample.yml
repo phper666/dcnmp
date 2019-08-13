@@ -67,7 +67,7 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
-      TZ: ${TZ}
+      TZ: "${TZ}"
     networks:
       - dcnmp
 
@@ -79,7 +79,7 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: "${MONGODB_INITDB_ROOT_USERNAME}"
       MONGO_INITDB_ROOT_PASSWORD: "${MONGODB_INITDB_ROOT_PASSWORD}"
-      TZ: ${TZ}
+      TZ: "${TZ}"
     volumes:
       - ${DATA_PATH}/mongo:/data/db:rw
       - ${DATA_PATH}/mongo/mongo_key:/mongo:rw
