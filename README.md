@@ -127,7 +127,7 @@ nodejs官方镜像有三种，但是目前我们要选择-alpine后缀的，容�
 2：supervisord脚本安装时，启动无效果，需要进入容器启动才行
 
 3：如果mysql启动不成功，查看容器报错为：[ERROR] Could not open file '/var/log/mysql/mysql.error.log' for error logging: Permission denied
-则需要你删除映射的/app/log/mysql目录，然后重新开启容器
+则需要你删除映射的/app/log/mysql目录，然后重新开启容器,如果还不行，则直接运行chmod -R 0777 /app/log/mysql
 
 4：swoole扩展偶尔安装不上去，是因为可能文件损坏，请到https://github.com/swoole/swoole-src/releases 下载对应的版本
 
