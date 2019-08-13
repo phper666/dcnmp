@@ -1,6 +1,7 @@
 ARG REDIS_VERSION
 FROM redis:${REDIS_VERSION}
 
+ARG TZ
 ARG ALPINE_REPOSITORIES
 
 RUN sed -i "s/dl-cdn.alpinelinux.org/${ALPINE_REPOSITORIES}/g" /etc/apk/repositories
@@ -8,9 +9,10 @@ RUN sed -i "s/dl-cdn.alpinelinux.org/${ALPINE_REPOSITORIES}/g" /etc/apk/reposito
 # apk update && install bash
 RUN apk update \
         && apk upgrade \
-        && apk add --no-cache bash bash-doc bash-completion \
-        && rm -rf /var/cache/apk/* \
-        && /bin/bash
+        && apk add --no-cache bash bash-doc bash-completion tzdata \
+        && cp "/usr/share/zoneinfo/$TZ" /etc/localtime \
+        && echo "$TZ" > /etc/timezone
+        && rm -rf /var/cache/apk/*
 
 
 

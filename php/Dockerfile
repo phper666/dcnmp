@@ -1,6 +1,7 @@
 ARG PHP_VERSION
 FROM php:${PHP_VERSION}
 
+ARG TZ
 ARG PHP_EXTENSIONS
 ARG PHP_MORE_EXTENSION_INSTALLER
 ARG ALPINE_REPOSITORIES
@@ -17,10 +18,6 @@ RUN chmod +x /usr/local/bin/composer
 
 COPY extensions /tmp/extensions
 COPY sh /tmp/extensions
-#COPY sh/install.sh /tmp/extensions/install.sh
-#COPY sh/php56.sh /tmp/extensions/php56.sh
-#COPY sh/php72.sh /tmp/extensions/php72.sh
-#COPY sh/supervisord.sh /tmp/extensions/supervisord.sh
 WORKDIR /tmp/extensions
 
 #使用$(nproc)会出现错误，现在还找不到解决方法，下面的数值是你的cpu核数
@@ -31,5 +28,13 @@ RUN chmod +x install.sh && chmod +x "${PHP_MORE_EXTENSION_INSTALLER}" && chmod +
 RUN sh install.sh && sh "${PHP_MORE_EXTENSION_INSTALLER}" && sh supervisord.sh
 
 RUN rm -rf /tmp/extensions
+
+# apk update && install
+RUN apk update \
+        && apk upgrade \
+        && apk add --no-cache tzdata \
+        && cp "/usr/share/zoneinfo/$TZ" /etc/localtime \
+        && echo "$TZ" > /etc/timezone
+        && rm -rf /var/cache/apk/*
 
 WORKDIR /var/www/html

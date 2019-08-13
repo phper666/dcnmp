@@ -23,6 +23,11 @@ if [ -z "${EXTENSIONS##*,mysql,*}" ]; then
     docker-php-ext-install ${MC} mysql
 fi
 
+if [ -z "${EXTENSIONS##*,mongodb,*}" ]; then
+    echo "---------- Install mongodb ----------"
+    pecl install mongodb
+    docker-php-ext-enable mongodb
+fi
 
 if [ -z "${EXTENSIONS##*,sodium,*}" ]; then
     echo "---------- Install sodium ----------"
