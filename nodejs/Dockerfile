@@ -13,6 +13,7 @@ RUN apk update \
         && echo "$TZ" > /etc/timezone \
         && rm -rf /var/cache/apk/*
 
+RUN npm install  --registry=https://registry.npm.taobao.org
 RUN npm install -g pm2
 
 EXPOSE 3000
