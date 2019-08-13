@@ -31,7 +31,6 @@ RUN rm -rf /tmp/extensions
 
 # apk update && install
 RUN apk update \
-        && apk upgrade \
         && apk add --no-cache tzdata \
         && cp "/usr/share/zoneinfo/$TZ" /etc/localtime \
         && echo "$TZ" > /etc/timezone \

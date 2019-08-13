@@ -8,7 +8,6 @@ RUN sed -i "s/dl-cdn.alpinelinux.org/${ALPINE_REPOSITORIES}/g" /etc/apk/reposito
 
 # apk update && install
 RUN apk update \
-        && apk upgrade \
         && apk add --no-cache bash bash-doc bash-completion git python make openssl tar gcc tzdata \
         && cp "/usr/share/zoneinfo/$TZ" /etc/localtime \
         && echo "$TZ" > /etc/timezone
