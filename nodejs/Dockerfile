@@ -18,6 +18,9 @@ RUN npm config set unsafe-perm true
 
 RUN npm install pm2 -g
 
+# 可以随便的切换npm的源工具，使用方法请看https://www.jianshu.com/p/4f9b09c428d1
+#RUN npm install -g nrm
+
 EXPOSE 3000
 
 ENTRYPOINT ["node"]
