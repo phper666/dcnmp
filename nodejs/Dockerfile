@@ -13,7 +13,10 @@ RUN apk update \
         && echo "$TZ" > /etc/timezone \
         && rm -rf /var/cache/apk/*
 
-RUN npm install -g pm2
+#解决低镜像的权限问题
+RUN npm config set unsafe-perm true
+
+RUN npm install pm2 -g
 
 EXPOSE 3000
 
