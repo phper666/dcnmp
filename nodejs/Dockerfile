@@ -9,7 +9,8 @@ ENV TZ=${TZ}
 RUN sed -i "s/dl-cdn.alpinelinux.org/${ALPINE_REPOSITORIES}/g" /etc/apk/repositories
 
 # apk update && install
-RUN apk update \
+RUN set -ex \
+        && apk update \
         && apk add --no-cache bash bash-doc bash-completion git python make openssl tar gcc g++ tzdata \
         && cp "/usr/share/zoneinfo/$TZ" /etc/localtime \
         && echo "$TZ" > /etc/timezone \
