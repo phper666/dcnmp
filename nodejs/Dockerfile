@@ -4,8 +4,6 @@ FROM node:${NODEJS_VERSION}
 ARG TZ
 ARG ALPINE_REPOSITORIES
 
-ENV TZ=${TZ}
-
 RUN sed -i "s/dl-cdn.alpinelinux.org/${ALPINE_REPOSITORIES}/g" /etc/apk/repositories
 
 # apk update && install
