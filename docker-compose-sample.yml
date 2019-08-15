@@ -154,8 +154,7 @@ services:
       args:
         ALPINE_REPOSITORIES: ${ALPINE_REPOSITORIES}
         NODEJS_VERSION: ${NODEJS_VERSION}
-    environment:
-      TZ: "${TZ}"
+        TZ: ${TZ}
     ports:
       - "${NODEJS_HOST_PORT_3000}:3000"
       - "${NODEJS_HOST_PORT_8088}:8088"
