@@ -2,4 +2,4 @@
 !.gitignore
 !localhost.conf
 !localhost_https.conf
-!nodejs_test.conf
+!nodejs_test.conf.bak
