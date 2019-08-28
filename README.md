@@ -1,4 +1,4 @@
-集成了多个服务，目前有nginx、php、mysql、mongodb、redis、rabbitmq、phpredisadmin、supervisord(安装在php容器中)、nodejs。如果你想支持更多的服务，可以参考原有的服务目录结构、env.sample配置、docker-compose-sample.yml配置
+集成了多个服务，目前有nginx、php、mysql、mongodb、redis、rabbitmq、phpredisadmin、supervisord(安装在php容器中)。如果你想支持更多的服务，可以参考原有的服务目录结构、env.sample配置、docker-compose-sample.yml配置
 
 # 目录
 - [1.目录结构](#1目录结构)
@@ -7,7 +7,9 @@
 - [4.添加快捷命令](#4添加快捷命令)
 - [5.配置文件说明](#5配置文件说明)
 - [6.PHP镜像选择](#6PHP镜像选择)
-- [7.存在问题](#7存在问题)
+- [7.nodejs镜像选择](#7nodejs镜像选择)
+- [8.监控文件变化](#8监控文件变化)
+- [9.存在问题](#9存在问题)
 
 ## 1.目录结构
 
@@ -88,11 +90,11 @@ PHP56_EXTENSIONS=opcache,redis                 # PHP 5.6要安装的扩展列表
 
 打开~/.bashrc，加上：
 ```bash
-alias dnginx='docker exec -it dnmp_nginx_1 /bin/sh'
-alias dphp72='docker exec -it dnmp_php72_1 /bin/sh'
-alias dphp56='docker exec -it dnmp_php56_1 /bin/sh'
-alias dmysql='docker exec -it dnmp_mysql_1 /bin/bash'
-alias dredis='docker exec -it dnmp_redis_1 /bin/sh'
+alias dnginx='docker exec -it dcnmp_nginx_1 /bin/sh'
+alias dphp72='docker exec -it dcnmp_php72_1 /bin/sh'
+alias dphp56='docker exec -it dcnmp_php56_1 /bin/sh'
+alias dmysql='docker exec -it dcnmp_mysql_1 /bin/bash'
+alias dredis='docker exec -it dcnmp_redis_1 /bin/sh'
 ```
 其它的服务一样，自行设置
 
@@ -121,7 +123,12 @@ PHP镜像支持多个版本，可以查看：https://github.com/docker-library/r
 ## 7.nodejs镜像选择
 nodejs官方镜像有三种，但是目前我们要选择-alpine后缀的，容量小、好用。nodejs搭配nginx很简单，在代理那里转发到nodejs容器即可，例如http://nodejs:3000
 
-## 8.存在问题
+## 8.监控文件变化
+新增对于hyperf等swoole框架的文件变化重启服务     
+进入到php容器直接使用swoolefor即可使用服务，详细请看php容器的~/.bashrc  
+如何使用请移步到swoolefor查看文档，地址：https://github.com/mix-php/swoolefor
+
+## 9.存在问题
 1：目前在/php/Dockerfile文件中，无法使用$(nproc)，使用会报错，无法拿到cpu的数目
 
 2：supervisord脚本安装时，启动无效果，需要进入容器启动才行

@@ -17,7 +17,7 @@ RUN set -ex \
 #解决低镜像的权限问题
 RUN npm config set unsafe-perm true
 
-# https://www.jianshu.com/p/d636f96c9bf3,这里打包的时候回有点
+# https://www.jianshu.com/p/d636f96c9bf3
 RUN npm install pm2 -g --registry=https://registry.npm.taobao.org
 
 #安装yapi的cli命令
@@ -29,3 +29,5 @@ RUN npm install pm2 -g --registry=https://registry.npm.taobao.org
 EXPOSE 3000
 
 ENTRYPOINT ["node"]
+
+WORKDIR /var/www/html
