@@ -266,3 +266,8 @@ if [ -z "${EXTENSIONS##*,yaf,*}" ]; then
     printf "\n" | pecl install yaf
     docker-php-ext-enable yaf
 fi
+if [ -z "${EXTENSIONS##*,inotify,*}" ]; then
+    echo "---------- Install inotify ----------"
+    printf "\n" | pecl install inotify
+    docker-php-ext-enable inotify
+fi
