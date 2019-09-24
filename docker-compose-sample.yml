@@ -11,7 +11,7 @@ services:
       - "${NGINX_HTTP_HOST_PORT}:80"
       - "${NGINX_HTTPS_HOST_PORT}:443"
     volumes:
-      - ${CODE_PATH}:/var/www/html/:rw
+      - ${CODE_PATH}:/app/www/:rw
       - ${CONF_PATH}/nginx/conf/conf.d:/etc/nginx/conf.d:rw
       - ${CONF_PATH}/nginx/conf/vhost:/etc/nginx/vhost:rw
       - ${CONF_PATH}/nginx/conf/nginx.conf:/etc/nginx/nginx.conf:ro
@@ -38,7 +38,7 @@ services:
       - "${PHP_HOST_PORT_9501}:9501"
       - "${PHP_HOST_PORT_18306}:18306"
     volumes:
-      - ${CODE_PATH}:/var/www/html/:rw
+      - ${CODE_PATH}:/app/www/:rw
       - ${CONF_PATH}/php/conf/php.ini:/usr/local/etc/php/php.ini:ro
       - ${CONF_PATH}/php/conf/php-fpm.conf:/usr/local/etc/php-fpm.d/www.conf:rw
       - ${CONF_PATH}/php/conf/supervisord/supervisord.d:/etc/supervisord.d:rw
@@ -159,7 +159,7 @@ services:
       - "${NODEJS_HOST_PORT_3000}:3000"
       - "${NODEJS_HOST_PORT_8088}:8088"
     volumes:
-      - ${CODE_PATH}:/var/www/html/:rw
+      - ${CODE_PATH}:/app/www/:rw
     restart: always
     stdin_open: true
     tty: true
