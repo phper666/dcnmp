@@ -42,4 +42,4 @@ RUN apk update \
         && echo "$TZ" > /etc/timezone \
         && rm -rf /var/cache/apk/*
 
-WORKDIR /var/www/html
+WORKDIR /app/www
