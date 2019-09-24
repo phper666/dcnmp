@@ -30,4 +30,4 @@ EXPOSE 3000
 
 ENTRYPOINT ["node"]
 
-WORKDIR /var/www/html
+WORKDIR /app/www
