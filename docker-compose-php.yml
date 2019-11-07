@@ -62,7 +62,6 @@ services:
     ports:
       - "${PHP73_HOST_PORT_9001}:9000"
       - "${PHP73_HOST_PORT_9502}:9502"
-      - "${PHP73_HOST_PORT_18307}:18307"
     volumes:
       - ${CODE_PATH}:/app/www/:rw
       - ${CONF_PATH}/php73/conf/php.ini:/usr/local/etc/php/php.ini:ro
@@ -132,60 +131,6 @@ services:
     stdin_open: true
     tty: true
     entrypoint: ["redis-server", "/etc/redis.conf"]
-    networks:
-      - dcnmp
-
-  rabbitmq:
-    build:
-      context: rabbitmq
-      args:
-        RABBITMQ_VERSION: ${RABBITMQ_VERSION}
-    ports:
-      - "${RABBITMQ_HOST_PORT_C}:5672"
-      - "${RABBITMQ_HOST_PORT_S}:15672"
-    environment:
-      RABBITMQ_DEFAULT_USER: "${RABBITMQ_DEFAULT_USER}"
-      RABBITMQ_DEFAULT_PASS: "${RABBITMQ_DEFAULT_PASS}"
-      TZ: "${TZ}"
-    volumes:
-      - ${LOG_PATH}/rabbitmq:/var/log/rabbitmq:rw
-      - ${DATA_PATH}/rabbitmq:/var/lib/rabbitmq:rw
-
-    stdin_open: true
-    tty: true
-    restart: always
-    networks:
-      - dcnmp
-
-  phpredisadmin:
-    build:
-      context: phpredisadmin
-      args:
-        REDISMYADMIN_VERSION: ${REDISMYADMIN_VERSION}
-        TZ: ${TZ}
-    ports:
-      - "${REDISMYADMIN_HOST_PORT}:80"
-    environment:
-      REDIS_1_HOST: "redis"
-      REDIS_1_PORT: "6379"
-    networks:
-      - dcnmp
-
-  nodejs:
-    build:
-      context: nodejs
-      args:
-        ALPINE_REPOSITORIES: ${ALPINE_REPOSITORIES}
-        NODEJS_VERSION: ${NODEJS_VERSION}
-        TZ: ${TZ}
-    ports:
-      - "${NODEJS_HOST_PORT_3000}:3000"
-      - "${NODEJS_HOST_PORT_8088}:8088"
-    volumes:
-      - ${CODE_PATH}:/app/www/:rw
-    restart: always
-    stdin_open: true
-    tty: true
     networks:
       - dcnmp
 
