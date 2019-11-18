@@ -9,8 +9,13 @@ ARG PHP_SWOOLE_VERSION
 
 RUN sed -i "s/dl-cdn.alpinelinux.org/${ALPINE_REPOSITORIES}/g" /etc/apk/repositories
 
-# Fix: https://github.com/docker-library/php/issues/240
-RUN apk add gnu-libiconv --no-cache --repository http://${ALPINE_REPOSITORIES}/alpine/edge/community/ --allow-untrusted
+# apk update && install
+RUN apk update \
+        && apk add --no-cache tzdata \
+        && cp "/usr/share/zoneinfo/$TZ" /etc/localtime \
+        && echo "$TZ" > /etc/timezone \
+        && rm -rf /var/cache/apk/*
+
 ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
 
 RUN cd /home
@@ -42,12 +47,5 @@ RUN echo "alias swoolefor='php /usr/local/bin/swoolefor'" >> ~/.bashrc && source
 # 移动composer
 #RUN mv /var/local/soft/composer.phar /usr/local/bin/composer
 #RUN chmod +x /usr/local/bin/composer
-
-# apk update && install
-RUN apk update \
-        && apk add --no-cache tzdata \
-        && cp "/usr/share/zoneinfo/$TZ" /etc/localtime \
-        && echo "$TZ" > /etc/timezone \
-        && rm -rf /var/cache/apk/*
 
 WORKDIR /app/www
