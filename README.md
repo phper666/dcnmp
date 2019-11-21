@@ -1,3 +1,6 @@
+# 注意  
+默认使用php7.3的镜像，如果你要用php7.2,请修改nginx的配置   
+
 集成了多个服务，目前有nginx、php、mysql、mongodb、redis、rabbitmq、phpredisadmin、supervisord(安装在php容器中)。如果你想支持更多的服务，可以参考原有的服务目录结构、env.sample配置、docker-compose-sample.yml配置
 
 # 目录
