@@ -1,3 +1,15 @@
+# 注意  
+默认使用php7.3的镜像，如果你要用php7.2,请记得修改nginx的php代理配置   
+```
+location ~ \.php$ {
+        fastcgi_pass   php73:9000;  #这里要改为php72,对应你composer.yml里面的
+        fastcgi_index  index.php;
+        include        fastcgi_params;
+        fastcgi_param  PATH_INFO $fastcgi_path_info;
+        fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+    }
+```
+
 集成了多个服务，目前有nginx、php、mysql、mongodb、redis、rabbitmq、phpredisadmin、supervisord(安装在php容器中)。如果你想支持更多的服务，可以参考原有的服务目录结构、env.sample配置、docker-compose-sample.yml配置
 
 # 目录
