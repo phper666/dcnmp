@@ -17,6 +17,7 @@ supervisorctl update
 supervisorctl restart all
 # 给supervisord sock文件最高权限，因为偶尔会出现拒绝连接的问题
 chmod 777 /var/run/supervisor.sock
+关闭supervisorctl shutdown
 ~~~
 
 

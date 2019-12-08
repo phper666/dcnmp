@@ -1,6 +1,7 @@
 version: "3"
 services:
   nginx:
+    container_name: dcnmp_nginx
     build:
       context: nginx
       args:
@@ -22,7 +23,8 @@ services:
     networks:
       - dcnmp
 
-  php72:
+  php:
+    container_name: dcnmp_php
     build:
       context: php
       args:
@@ -31,10 +33,12 @@ services:
         PHP_EXTENSIONS: ${PHP_EXTENSIONS}
         PHP_MORE_EXTENSION_INSTALLER: ${PHP_MORE_EXTENSION_INSTALLER}
         PHP_SWOOLE_VERSION: ${PHP_SWOOLE_VERSION}
+        PHP_REPLACE_SOURCE: ${PHP_REPLACE_SOURCE}
         TZ: ${TZ}
     ports:
       - "${PHP_HOST_PORT_9000}:9000"
       - "${PHP_HOST_PORT_9501}:9501"
+      - "${PHP_HOST_PORT_9502}:9502"
       - "${PHP_HOST_PORT_18306}:18306"
     volumes:
       - ${CODE_PATH}:/app/www/:rw
@@ -49,25 +53,28 @@ services:
     networks:
       - dcnmp
 
-  php73:
+  php7:
+    container_name: dcnmp_php7
     build:
-      context: php73
+      context: php7
       args:
         ALPINE_REPOSITORIES: ${ALPINE_REPOSITORIES}
-        PHP_VERSION: ${PHP73_VERSION}
-        PHP_EXTENSIONS: ${PHP73_EXTENSIONS}
-        PHP_MORE_EXTENSION_INSTALLER: ${PHP73_MORE_EXTENSION_INSTALLER}
-        PHP_SWOOLE_VERSION: ${PHP73_SWOOLE_VERSION}
+        PHP_VERSION: ${PHP7_VERSION}
+        PHP_EXTENSIONS: ${PHP7_EXTENSIONS}
+        PHP_MORE_EXTENSION_INSTALLER: ${PHP7_MORE_EXTENSION_INSTALLER}
+        PHP_SWOOLE_VERSION: ${PHP7_SWOOLE_VERSION}
+        PHP_REPLACE_SOURCE: ${PHP7_REPLACE_SOURCE}
         TZ: ${TZ}
     ports:
-      - "${PHP73_HOST_PORT_9001}:9000"
-      - "${PHP73_HOST_PORT_9502}:9502"
-      - "${PHP73_HOST_PORT_18307}:18307"
+      - "${PHP7_HOST_PORT_9001}:9001"
+      - "${PHP7_HOST_PORT_9503}:9503"
+      - "${PHP7_HOST_PORT_9504}:9504"
+      - "${PHP7_HOST_PORT_18307}:18307"
     volumes:
       - ${CODE_PATH}:/app/www/:rw
-      - ${CONF_PATH}/php73/conf/php.ini:/usr/local/etc/php/php.ini:ro
-      - ${CONF_PATH}/php73/conf/php-fpm.conf:/usr/local/etc/php-fpm.d/www.conf:rw
-      - ${LOG_PATH}/${PHP73_VERSION}:/var/log/php:rw
+      - ${CONF_PATH}/php7/conf/php.ini:/usr/local/etc/php/php.ini:ro
+      - ${CONF_PATH}/php7/conf/php-fpm.conf:/usr/local/etc/php-fpm.d/www.conf:rw
+      - ${LOG_PATH}/${PHP7_VERSION}:/var/log/php:rw
     restart: always
     stdin_open: true
     tty: true
@@ -77,6 +84,7 @@ services:
       - dcnmp
 
   mysql:
+    container_name: dcnmp_mysql
     build:
       context: mysql
       args:
@@ -95,6 +103,7 @@ services:
       - dcnmp
 
   mongodb:
+    container_name: dcnmp_mongodb
     build:
       context: mongodb
       args:
@@ -117,11 +126,13 @@ services:
       --auth
 
   redis:
+    container_name: dcnmp_redis
     build:
       context: redis
       args:
         REDIS_VERSION: ${REDIS_VERSION}
         ALPINE_REPOSITORIES: ${ALPINE_REPOSITORIES}
+        REDIS_EXTENSION_VERSION: ${REDIS_EXTENSION_VERSION}
         TZ: ${TZ}
     ports:
       - "${REDIS_HOST_PORT}:6379"
@@ -136,6 +147,7 @@ services:
       - dcnmp
 
   rabbitmq:
+    container_name: dcnmp_rabbitmq
     build:
       context: rabbitmq
       args:
@@ -158,6 +170,7 @@ services:
       - dcnmp
 
   phpredisadmin:
+    container_name: dcnmp_phpredisadmin
     build:
       context: phpredisadmin
       args:
@@ -172,6 +185,7 @@ services:
       - dcnmp
 
   nodejs:
+    container_name: dcnmp_nodejs
     build:
       context: nodejs
       args:
