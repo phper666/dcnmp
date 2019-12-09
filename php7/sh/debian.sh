@@ -294,7 +294,7 @@ if [ -z "${PHP_EXTENSIONS##*,swoole,*}" ]; then
     ldconfig
     cd "${EXTENSIONS_PATH}"
     mkdir swoole
-    tar -xf "${PHP_SWOOLE_VERSION}" -C swoole --strip-components=1
+    tar -xzvf "${PHP_SWOOLE_VERSION}" -C swoole --strip-components=1
     cd swoole && phpize && ./configure --enable-openssl && make ${MC} && make install
     docker-php-ext-enable swoole
 fi
