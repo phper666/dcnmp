@@ -295,7 +295,7 @@ if [ -z "${PHP_EXTENSIONS##*,swoole,*}" ]; then
     ln -s /usr/include/openssl /usr/local/include/openssl
     mkdir swoole
     tar -zxvf "${PHP_SWOOLE_VERSION}" -C swoole --strip-components=1
-    cd swoole && phpize && ./configure --enable-openssl && make ${MC} && make install
+    cd swoole && phpize && ./configure --with-openssl-dir --enable-openssl && make ${MC} && make install
     docker-php-ext-enable swoole
 fi
 
