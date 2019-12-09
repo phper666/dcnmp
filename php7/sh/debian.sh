@@ -398,3 +398,6 @@ if [ -z "${PHP_EXTENSIONS##*,xlswriter,*}" ]; then
     printf "\n" | pecl install xlswriter
     docker-php-ext-enable xlswriter
 fi
+
+echo "---------- clean cache ----------"
+apt-get clean
