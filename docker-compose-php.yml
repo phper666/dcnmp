@@ -45,6 +45,7 @@ services:
       - ${CODE_PATH}:/app/www/:rw
       - ${CONF_PATH}/php/conf/php.ini:/usr/local/etc/php/php.ini:ro
       - ${CONF_PATH}/php/conf/php-fpm.conf:/usr/local/etc/php-fpm.d/www.conf:rw
+      - ${CONF_PATH}/php/conf/supervisor:/etc/supervisor:rw
       - ${LOG_PATH}/${PHP_VERSION}:/var/log/php:rw
     restart: always
     stdin_open: true

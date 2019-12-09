@@ -291,6 +291,7 @@ fi
 
 if [ -z "${PHP_EXTENSIONS##*,swoole,*}" ]; then
     echo "---------- Install swoole(${PHP_SWOOLE_VERSION})----------"
+    ldconfig
     cd "${EXTENSIONS_PATH}"
     mkdir swoole
     tar -xf "${PHP_SWOOLE_VERSION}" -C swoole --strip-components=1
