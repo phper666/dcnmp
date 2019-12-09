@@ -17,7 +17,7 @@ mv /var/local/source/sources.list /etc/apt/sources.list
 rm -rf /var/local/source
 
 echo "---------- Install general dependencies ----------"
-apt-get update && apt-get upgrade && apt-get install -y apt-utils openssl libssl-dev zip unzip libc-dev zlib1g-dev libz-dev libpq-dev libcurl4-openssl-dev && apt-get clean
+apt-get update && apt-get upgrade && apt-get install -y apt-utils openssl libssl-dev zip unzip libc-dev zlib1g-dev libz-dev libpq-dev libcurl4-openssl-dev
 usermod -u 1000 www-data && groupmod -g 1000 www-data
 
 if [ "${PHP_INSTALL_SUPERVISOR}" = "true" ]; then
@@ -291,7 +291,7 @@ fi
 
 if [ -z "${PHP_EXTENSIONS##*,swoole,*}" ]; then
     echo "---------- Install swoole(${PHP_SWOOLE_VERSION})----------"
-    apt-get install -y openssl libssl-dev
+#    apt-get install -y openssl libssl-dev
     cd "${EXTENSIONS_PATH}"
     mkdir swoole
     tar -zxvf "${PHP_SWOOLE_VERSION}" -C swoole --strip-components=1
