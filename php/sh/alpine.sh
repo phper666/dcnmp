@@ -23,6 +23,11 @@ apk update && apk add --no-cache tzdata gnu-libiconv shadow bzip2 && usermod -u 
 apk add --no-cache gnu-libiconv --repository http://${ALPINE_REPOSITORIES}/alpine/edge/community/ --allow-untrusted
 export LD_PRELOAD="/usr/lib/preloadable_libiconv.so php"
 
+if [ "${PHP_INSTALL_SUPERVISOR}" == true ]; then
+    echo "---------- Install Supervisor ----------"
+    apk add --no-cache supervisor
+fi
+
 if [ "${TZ}" != "" ]; then
     echo "---------- Undate timezone ----------"
     cp "/usr/share/zoneinfo/${TZ}" /etc/localtime && echo "${TZ}" > /etc/timezone

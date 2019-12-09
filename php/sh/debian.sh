@@ -20,6 +20,11 @@ echo "---------- Install general dependencies ----------"
 apt-get update && apt-get upgrade && apt-get install -y apt-utils zip unzip libc-dev zlib1g-dev libssl-dev libz-dev libpq-dev libcurl4-openssl-dev && apt-get clean
 usermod -u 1000 www-data && groupmod -g 1000 www-data
 
+if [ "${PHP_INSTALL_SUPERVISOR}" == true ]; then
+    echo "---------- Install Supervisor ----------"
+    apt-get install -y supervisor
+fi
+
 if [ "${TZ}" != "" ]; then
     echo "---------- Undate timezone ----------"
     cp "/usr/share/zoneinfo/${TZ}" /etc/localtime && echo "${TZ}" > /etc/timezone
