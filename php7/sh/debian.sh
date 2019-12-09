@@ -268,7 +268,7 @@ if [ -z "${PHP_EXTENSIONS##*,redis,*}" ]; then
     echo "---------- Install redis ----------"
     cd "${EXTENSIONS_PATH}"
     mkdir redis
-    tar -xf redis-5.0.2.tgz -C redis --strip-components=1
+    tar -zxvf redis-5.0.2.tgz -C redis --strip-components=1
     cd redis && phpize && ./configure && make ${MC} && make install
     docker-php-ext-enable redis
 fi
@@ -284,7 +284,7 @@ if [ -z "${PHP_EXTENSIONS##*,xdebug,*}" ]; then
     echo "---------- Install xdebug ----------"
     cd "${EXTENSIONS_PATH}"
     mkdir xdebug
-    tar -xf xdebug-2.6.1.tgz -C xdebug --strip-components=1
+    tar -zxvf xdebug-2.6.1.tgz -C xdebug --strip-components=1
     cd xdebug && phpize && ./configure && make ${MC} && make install
     docker-php-ext-enable xdebug
 fi
@@ -321,7 +321,7 @@ if [ -z "${PHP_EXTENSIONS##*,mongodb,*}" ]; then
     echo "---------- Install mongodb ----------"
     cd "${EXTENSIONS_PATH}"
     mkdir mongodb
-    tar -xf mongodb-1.6.0.tgz -C mongodb --strip-components=1
+    tar -zxvf mongodb-1.6.1.tgz -C mongodb --strip-components=1
     cd mongodb && phpize && ./configure --with-php-config=/usr/local/bin/php-config && make ${MC} && make install
     docker-php-ext-enable mongodb
 fi
@@ -331,7 +331,7 @@ if [ -z "${PHP_EXTENSIONS##*,event,*}" ]; then
     apt-get -y install libevent-dev
     cd "${EXTENSIONS_PATH}"
     mkdir event
-    tar -xf event-2.5.3.tgz -C event --strip-components=1
+    tar -zxvf event-2.5.3.tgz -C event --strip-components=1
     cd event && phpize && ./configure --with-php-config=/usr/local/bin/php-config && make ${MC} && make install
     docker-php-ext-enable --ini-name event.ini event
 fi
@@ -388,7 +388,7 @@ if [ -z "${PHP_EXTENSIONS##*,xhprof,*}" ]; then
     echo "---------- Install XHProf ----------"
     cd "${EXTENSIONS_PATH}"
     mkdir xhprof
-    tar -xf xhprof-2.1.0.tgz -C xhprof --strip-components=1
+    tar -zxvf xhprof-2.1.0.tgz -C xhprof --strip-components=1
     cd xhprof/extension && phpize && ./configure  && make ${MC} && make install
     docker-php-ext-enable xhprof
 fi
