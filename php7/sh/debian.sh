@@ -293,11 +293,9 @@ if [ -z "${PHP_EXTENSIONS##*,swoole,*}" ]; then
     echo "---------- Install swoole(${PHP_SWOOLE_VERSION})----------"
     apt-get install -y openssl libssl-dev
     cd "${EXTENSIONS_PATH}"
-    mkdir swoole && mkdir swoole/openssl && mkdir swoole/openssl/include
-    cp -r /usr/include/openssl "${EXTENSIONS_PATH}/swoole/openssl/include"
+    mkdir swoole
     tar -zxvf "${PHP_SWOOLE_VERSION}" -C swoole --strip-components=1
-    ls -l "${EXTENSIONS_PATH}/swoole/openssl/include"
-    cd swoole && phpize && ./configure --enable-openssl --with-openssl-dir="${EXTENSIONS_PATH}/swoole/openssl" && make ${MC} && make install
+    cd swoole && phpize && ./configure --enable-openssl && make ${MC} && make install
     docker-php-ext-enable swoole
 fi
 
