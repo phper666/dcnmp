@@ -291,6 +291,7 @@ fi
 
 if [ -z "${PHP_EXTENSIONS##*,swoole,*}" ]; then
     echo "---------- Install swoole(${PHP_SWOOLE_VERSION})----------"
+    apt-get install -y openssl libssl-dev
     cd "${EXTENSIONS_PATH}"
     mkdir swoole && mkdir swoole/openssl && mkdir swoole/openssl/include
     cp -r /usr/include/openssl "${EXTENSIONS_PATH}/swoole/openssl/include"
