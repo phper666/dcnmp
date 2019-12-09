@@ -17,7 +17,7 @@ mv /var/local/source/sources.list /etc/apt/sources.list
 rm -rf /var/local/source
 
 echo "---------- Install general dependencies ----------"
-apt-get update && apt-get upgrade && apt-get install -y zip unzip libc-dev zlib1g-dev libz-dev libpq-dev libcurl4-openssl-dev openssl libssl-dev && apt-get clean
+apt-get update && apt-get upgrade && apt-get install -y apt-utils zip unzip libc-dev zlib1g-dev libz-dev libpq-dev libcurl4-openssl-dev openssl libssl-dev && apt-get clean
 usermod -u 1000 www-data && groupmod -g 1000 www-data
 
 if [ "${PHP_INSTALL_SUPERVISOR}" = "true" ]; then
@@ -295,7 +295,7 @@ if [ -z "${PHP_EXTENSIONS##*,swoole,*}" ]; then
     cd "${EXTENSIONS_PATH}"
     mkdir swoole
     tar -zxvf "${PHP_SWOOLE_VERSION}" -C swoole --strip-components=1
-    cd swoole && phpize && ./configure --with-openssl-dir --enable-openssl  && make ${MC} && make install
+    cd swoole && phpize && ./configure --enable-openssl --with-openssl-dir=/usr/include/openssl && make ${MC} && make install
     docker-php-ext-enable swoole
 fi
 
