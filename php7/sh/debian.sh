@@ -37,6 +37,7 @@ fi
 
 if [ -z "${PHP_EXTENSIONS##*,zip,*}" ]; then
     echo "---------- Install zip ----------"
+    apt-get install -y libzip-dev
 	docker-php-ext-install ${MC} zip
 fi
 
