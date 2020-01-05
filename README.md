@@ -22,6 +22,7 @@ location ~ \.php$ {
 - [7.nodejs镜像选择](#7nodejs镜像选择)
 - [8.监控文件变化](#8监控文件变化)
 - [9.存在问题](#9存在问题)
+- [10.swoole框架建议](#10swoole框架建议)
 
 ## 1.目录结构
 
@@ -63,9 +64,9 @@ location ~ \.php$ {
 2. `clone`项目
 3. 拷贝并命名配置文件，启动：
     ```
-    $ cd dnmp
+    $ cd dcnmp
     $ cp env.sample .env
-    $ cp docker-compose-sample.yml docker-compose.yml
+    $ cp docker-compose-php.yml docker-compose.yml
     $ docker-compose up
     ```
 4. 访问在浏览器中访问：
@@ -75,11 +76,10 @@ location ~ \.php$ {
 
 要修改端口、日志文件位置、php代码目录位置、php扩展、php镜像版本等，请修改**.env**文件，然后重新构建：
 ```bash
-$ docker-compose build php72    # 重建单个服务
+$ docker-compose build php7    # 重建单个服务
 $ docker-compose build          # 重建全部服务
 
 ```
-
 
 ## 3.PHP扩展
 PHP的很多功能都是通过扩展实现，而安装扩展是一个略费时间的过程，
@@ -92,7 +92,7 @@ PHP56_EXTENSIONS=opcache,redis                 # PHP 5.6要安装的扩展列表
 ```
 然后重新build PHP镜像。
     ```bash
-    docker-compose build php72
+    docker-compose build php7
     docker-compose up -d
     ```
 可用的扩展请看同文件的`PHP extensions`注释块说明。
@@ -102,11 +102,11 @@ PHP56_EXTENSIONS=opcache,redis                 # PHP 5.6要安装的扩展列表
 
 打开~/.bashrc，加上：
 ```bash
-alias dnginx='docker exec -it dcnmp_nginx_1 /bin/sh'
-alias dphp72='docker exec -it dcnmp_php72_1 /bin/sh'
-alias dphp56='docker exec -it dcnmp_php56_1 /bin/sh'
-alias dmysql='docker exec -it dcnmp_mysql_1 /bin/bash'
-alias dredis='docker exec -it dcnmp_redis_1 /bin/sh'
+alias dnginx='docker exec -it dcnmp_nginx /bin/sh'
+alias dphp='docker exec -it dcnmp_php /bin/sh'
+alias dphp7='docker exec -it dcnmp_php7 /bin/sh'
+alias dmysql='docker exec -it dcnmp_mysql /bin/bash'
+alias dredis='docker exec -it dcnmp_redis /bin/sh'
 ```
 其它的服务一样，自行设置
 
@@ -148,4 +148,5 @@ nodejs官方镜像有三种，但是目前我们要选择-alpine后缀的，容�
 
 3：swoole扩展偶尔安装不上去，是因为可能文件损坏，请到https://github.com/swoole/swoole-src/releases 下载对应的版本
 
-
+## 10.swoole框架建议
+1、建议直接在宿主机使用supervisord来管理项目，使用supervisord来管理项目时，swoole的daemonize配置必须设置为1，如果是hyperf项目，则在hyperf/config/autoload/server.php的settings里面加一个daemonize=>1,如果不设置则无法杀死docker内的进程   
