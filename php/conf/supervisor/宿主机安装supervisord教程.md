@@ -12,7 +12,7 @@ cp dcnmp/php/conf/supervisord/supervisord.conf /etc/supervisord.conf
 cp dcnmp/php/conf/supervisord/centos7_supervisord_hyperf.ini.bak /etc/supervisord.d/hyperf.ini
 # 开启supervisord
 supervisord -c /etc/supervisord.conf
-supervisorctl reread
+supervisorctl reload
 supervisorctl update
 supervisorctl restart all
 # 给supervisord sock文件最高权限，因为偶尔会出现拒绝连接的问题
