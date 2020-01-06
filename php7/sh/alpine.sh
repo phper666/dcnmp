@@ -17,7 +17,7 @@ if [ "${ALPINE_REPOSITORIES}" != "" ]; then
 fi
 
 echo "---------- Apk update ----------"
-apk update && apk add --no-cache tzdata gnu-libiconv shadow bzip2 && usermod -u 1000 www-data && groupmod -g 1000 www-data
+apk update && apk add --no-cache git tzdata gnu-libiconv shadow bzip2 && usermod -u 1000 www-data && groupmod -g 1000 www-data
 
 # Fix: https://github.com/docker-library/php/issues/240
 apk add --no-cache gnu-libiconv --repository http://${ALPINE_REPOSITORIES}/alpine/edge/community/ --allow-untrusted
