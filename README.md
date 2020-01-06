@@ -149,4 +149,4 @@ nodejs官方镜像有三种，但是目前我们要选择-alpine后缀的，容�
 3：swoole扩展偶尔安装不上去，是因为可能文件损坏，请到https://github.com/swoole/swoole-src/releases 下载对应的版本
 
 ## 10.swoole框架建议
-1、建议直接在宿主机使用supervisord来管理项目，使用supervisord来管理项目时，swoole的daemonize配置必须设置为1，如果是hyperf项目，则在hyperf/config/autoload/server.php的settings里面加一个daemonize=>1,如果不设置则无法杀死docker内的进程   
+1、建议直接在宿主机使用supervisord来管理项目
