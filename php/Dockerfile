@@ -28,7 +28,7 @@ ENV PHP_EXTENSIONS=",${PHP_EXTENSIONS},"
 ENV EXTENSIONS_PATH="/tmp/extensions"
 
 # 安装扩展
-RUN chmod -R +x /tmp/extensions
+RUN chmod -R 777 /tmp/extensions
 RUN sh "${PHP_MORE_EXTENSION_INSTALLER}"
 
 RUN rm -rf /tmp/extensions
