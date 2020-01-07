@@ -1,5 +1,5 @@
 *
 !.gitignore
-!localhost.conf
-!localhost_https.conf
+!localhost.conf.bak
+!localhost_https.conf.bak
 !nodejs_test.conf.bak
