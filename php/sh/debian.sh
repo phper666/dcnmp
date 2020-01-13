@@ -17,7 +17,7 @@ mv /var/local/source/sources.list /etc/apt/sources.list
 rm -rf /var/local/source
 
 echo "---------- Install general dependencies ----------"
-apt-get update && apt-get upgrade && apt-get install -y git apt-utils openssl libssl-dev zip unzip libc-dev zlib1g-dev libz-dev libpq-dev libcurl4-openssl-dev
+apt-get update && apt-get upgrade && apt-get install -y git cmake apt-utils openssl libssl-dev zip unzip libc-dev zlib1g-dev libz-dev libpq-dev libcurl4-openssl-dev libapr1-dev libaprutil1-dev libmxml-dev
 usermod -u 1000 www-data && groupmod -g 1000 www-data
 
 if [ "${PHP_INSTALL_SUPERVISOR}" = "true" ]; then
