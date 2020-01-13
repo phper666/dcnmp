@@ -26,7 +26,7 @@ if [ "${PHP_INSTALL_SUPERVISOR}" = "true" ]; then
     apt-get install -y supervisor
 fi
 
-if [ "${PHP7_INSTALL_ALIYUN_OSS_SDK}" = "true" ]; then
+if [ "${PHP_INSTALL_ALIYUN_OSS_SDK}" = "true" ]; then
     echo "---------- Install Aliyun Oss Sdk ----------"
     apt-get install -y cmake libcurl4-openssl-dev libapr1-dev libaprutil1-dev libmxml-dev
     cd "${PHP_ALIYUN_OSS_SDK_VERSION}"
