@@ -17,12 +17,23 @@ mv /var/local/source/sources.list /etc/apt/sources.list
 rm -rf /var/local/source
 
 echo "---------- Install general dependencies ----------"
-apt-get update && apt-get upgrade && apt-get install -y git cmake apt-utils openssl libssl-dev zip unzip libc-dev zlib1g-dev libz-dev libpq-dev libcurl4-openssl-dev libapr1-dev libaprutil1-dev libmxml-dev
+apt-get update && apt-get upgrade && apt-get install -y git apt-utils openssl libssl-dev zip unzip libc-dev zlib1g-dev libz-dev libpq-dev libcurl4-openssl-dev
+
 usermod -u 1000 www-data && groupmod -g 1000 www-data
 
 if [ "${PHP_INSTALL_SUPERVISOR}" = "true" ]; then
     echo "---------- Install Supervisor ----------"
     apt-get install -y supervisor
+fi
+
+if [ "${PHP7_INSTALL_ALIYUN_OSS_SDK}" = "true" ]; then
+    echo "---------- Install Aliyun Oss Sdk ----------"
+    apt-get install -y cmake libcurl4-openssl-dev libapr1-dev libaprutil1-dev libmxml-dev
+    cd "${PHP_ALIYUN_OSS_SDK_VERSION}"
+    mkdir aliyun-oss-c-sdk
+    tar -zxvf "${PHP_ALIYUN_OSS_SDK_VERSION}" -C aliyun-oss-c-sdk --strip-components=1
+    cd aliyun-oss-c-sdk && cmake .
+    make && make install
 fi
 
 if [ "${TZ}" != "" ]; then
