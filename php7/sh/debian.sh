@@ -27,12 +27,12 @@ if [ "${PHP_INSTALL_SUPERVISOR}" = "true" ]; then
 fi
 
 if [ "${PHP_INSTALL_ALIYUN_OSS_SDK}" = "true" ]; then
-  echo "---------- Install Aliyun Oss Sdk ----------"
-  apt-get install -y cmake libcurl4-openssl-dev libapr1-dev libaprutil1-dev libmxml-dev
+  echo "---------- Install Aliyun Oss C++ Sdk ----------"
   cd "${EXTENSIONS_PATH}"
-  mkdir aliyun-oss-c-sdk
-  tar -zxvf "${PHP_ALIYUN_OSS_SDK_VERSION}" -C aliyun-oss-c-sdk --strip-components=1
-  cd aliyun-oss-c-sdk && cmake .
+  mkdir aliyun-oss-cpp-sdk
+  tar -zxvf "${PHP_ALIYUN_OSS_SDK_VERSION}" -C aliyun-oss-cpp-sdk --strip-components=1
+  cd aliyun-oss-cpp-sdk && makdir build
+  cd build && cmake ..
   make && make install
 fi
 
