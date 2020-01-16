@@ -17,7 +17,7 @@ if [ "${ALPINE_REPOSITORIES}" != "" ]; then
 fi
 
 echo "---------- Apk update ----------"
-apk update && apk add --no-cache git tzdata gnu-libiconv shadow bzip2 && usermod -u 1000 www-data && groupmod -g 1000 www-data
+apk update && apk add --no-cache git cmake tzdata gnu-libiconv shadow bzip2 && usermod -u 1000 www-data && groupmod -g 1000 www-data
 
 # Fix: https://github.com/docker-library/php/issues/240
 apk add --no-cache gnu-libiconv --repository http://${ALPINE_REPOSITORIES}/alpine/edge/community/ --allow-untrusted
@@ -26,6 +26,17 @@ export LD_PRELOAD="/usr/lib/preloadable_libiconv.so php"
 if [ "${PHP_INSTALL_SUPERVISOR}" = "true" ]; then
   echo "---------- Install Supervisor ----------"
   apk add --no-cache supervisor
+fi
+
+if [ "${PHP_INSTALL_ALIYUN_OSS_SDK}" = "true" ]; then
+  echo "---------- Install Aliyun Oss C++ Sdk ----------"
+  apk add --no-cache cmake
+  cd "${EXTENSIONS_PATH}"
+  mkdir aliyun-oss-cpp-sdk
+  tar -zxvf "${PHP_ALIYUN_OSS_SDK_VERSION}" -C aliyun-oss-cpp-sdk --strip-components=1
+  cd aliyun-oss-cpp-sdk && makdir build
+  cd build && cmake ..
+  make && make install
 fi
 
 if [ "${TZ}" != "" ]; then
