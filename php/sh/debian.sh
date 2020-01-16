@@ -28,7 +28,7 @@ fi
 
 if [ "${PHP_INSTALL_ALIYUN_OSS_SDK}" = "true" ]; then
   echo "---------- Install Aliyun Oss C++ Sdk ----------"
-  apt-get install -y cmake
+  apt-get install -y cmake libcurl4-openssl-dev libapr1-dev libaprutil1-dev libmxml-dev
   cd "${EXTENSIONS_PATH}"
   mkdir aliyun-oss-cpp-sdk
   tar -zxvf "${PHP_ALIYUN_OSS_SDK_VERSION}" -C aliyun-oss-cpp-sdk --strip-components=1
