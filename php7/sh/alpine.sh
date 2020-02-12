@@ -56,6 +56,7 @@ fi
 
 if [ -z "${PHP_EXTENSIONS##*,zip,*}" ]; then
   echo "---------- Install zip ----------"
+  apk add --no-cache libzip-dev
   docker-php-ext-install ${MC} zip
 fi
 
