@@ -1,8 +1,9 @@
 # 注意  
-默认使用php7.3的镜像，如果你要用php7.2,请记得修改nginx的php代理配置   
+1、默认使用php7.3的镜像，如果你要用php7.2,请记得修改nginx的php代理配置  
+2、如果你要使用多个php-fpm容器，记得修改php-fpm容器内的监听9000端口，如果多个php-fpm容器端口都是9000，那么只会生效一个，nginx转发到其它的php-fpm容器会直接502，默认php和php7两个容器时，则不需要修改，我已经修改好了，一个监听9000，另一个监听9001。如果你还要增加多个，则请查看php/conf/zz-docker.conf配置，可以直接修改php-fpm的监听端口。
 ```
 location ~ \.php$ {
-        fastcgi_pass   php73:9000;  #这里要改为php72,对应你composer.yml里面的
+        fastcgi_pass   php:9000;  #这里要改为php7,对应你composer.yml里面的
         fastcgi_index  index.php;
         include        fastcgi_params;
         fastcgi_param  PATH_INFO $fastcgi_path_info;

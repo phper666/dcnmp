@@ -45,6 +45,7 @@ services:
       - ${CODE_PATH}:/app/www/:rw
       - ${CONF_PATH}/php/conf/php.ini:/usr/local/etc/php/php.ini:ro
       - ${CONF_PATH}/php/conf/php-fpm.conf:/usr/local/etc/php-fpm.d/www.conf:rw
+      - ${CONF_PATH}/php/conf/zz-docker.conf:/usr/local/etc/php-fpm.d/zz-docker.conf:rw
       - ${CONF_PATH}/php/conf/supervisor:/etc/supervisor:rw
       - ${LOG_PATH}/${PHP_VERSION}:/var/log/php:rw
     restart: always
@@ -79,6 +80,7 @@ services:
       - ${CODE_PATH}:/app/www/:rw
       - ${CONF_PATH}/php7/conf/php.ini:/usr/local/etc/php/php.ini:ro
       - ${CONF_PATH}/php7/conf/php-fpm.conf:/usr/local/etc/php-fpm.d/www.conf:rw
+      - ${CONF_PATH}/php7/conf/zz-docker.conf:/usr/local/etc/php-fpm.d/zz-docker.conf:rw
       - ${CONF_PATH}/php7/conf/supervisor:/etc/supervisor:rw
       - ${LOG_PATH}/${PHP7_VERSION}:/var/log/php:rw
     restart: always
@@ -119,8 +121,9 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: "${MONGODB_INITDB_ROOT_PASSWORD}"
       TZ: "${TZ}"
     volumes:
-      - ${DATA_PATH}/mongo:/data/db:rw
-      - ${DATA_PATH}/mongo/mongo_key:/mongo:rw
+      - ${DATA_PATH}/mongodb:/data/db:rw
+      - ${DATA_PATH}/mongodb/mongo_key:/mongo:rw
+      - ${LOG_PATH}/mongodb:/var/log/mongodb/:rw
     ports:
       - "${MONGODB_HOST_PORT}:27017"
     restart: always
@@ -167,7 +170,6 @@ services:
     volumes:
       - ${LOG_PATH}/rabbitmq:/var/log/rabbitmq:rw
       - ${DATA_PATH}/rabbitmq:/var/lib/rabbitmq:rw
-
     stdin_open: true
     tty: true
     restart: always

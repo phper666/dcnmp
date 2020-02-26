@@ -8,10 +8,12 @@ RUN sed -i "s/dl-cdn.alpinelinux.org/${ALPINE_REPOSITORIES}/g" /etc/apk/reposito
 
 # apk update && install bash
 RUN apk update \
-        && apk add --no-cache bash bash-doc bash-completion tzdata \
-        && cp "/usr/share/zoneinfo/$TZ" /etc/localtime \
-        && echo "$TZ" > /etc/timezone \
-        && rm -rf /var/cache/apk/*
+    && apk upgrade \
+    && apk add --no-cache openssl \
+    && apk add --no-cache bash bash-doc bash-completion tzdata curl \
+    && cp "/usr/share/zoneinfo/$TZ" /etc/localtime \
+    && echo "$TZ" > /etc/timezone \
+    && rm -rf /var/cache/apk/*
 
 RUN set -x ; \
     addgroup -g 82 -S www-data ; \
