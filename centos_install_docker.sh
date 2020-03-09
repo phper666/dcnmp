@@ -31,7 +31,7 @@ echo "Docker Version"
 docker version
 
 echo "Install Dcoker-compose"
-echo '{ "registry-mirrors": ["http://docker.mirrors.ustc.edu.cn","http://hub-mirror.c.163.com","registry.docker-cn.com"] }' > /etc/docker/daemon.json
+echo '{ "registry-mirrors": ["https://docker.mirrors.ustc.edu.cn", "https://6kx4zyno.mirror.aliyuncs.com", "https://registry.docker-cn.com"] }' > /etc/docker/daemon.conf
 
 # 获取docker-compose文件
 # curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
