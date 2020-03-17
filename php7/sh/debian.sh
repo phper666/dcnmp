@@ -334,7 +334,7 @@ if [ -z "${PHP_EXTENSIONS##*,mongodb,*}" ]; then
   echo "---------- Install mongodb ----------"
   cd "${EXTENSIONS_PATH}"
   mkdir mongodb
-  tar -zxvf mongodb-1.6.1.tgz -C mongodb --strip-components=1
+  tar -zxvf mongodb-1.7.4.tgz -C mongodb --strip-components=1
   cd mongodb && phpize && ./configure --with-php-config=/usr/local/bin/php-config && make ${MC} && make install
   docker-php-ext-enable mongodb
 fi
