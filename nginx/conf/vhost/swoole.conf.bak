@@ -1,0 +1,64 @@
+server {
+    listen 80;
+    listen [::]:80;
+
+    # For https
+    #listen 443 ssl;
+    #listen [::]:443 ssl http2;
+    #ssl_certificate /etc/nginx/conf.d/certs/localhost/localhost.crt;
+    #ssl_certificate_key /etc/nginx/conf.d/certs/localhost/localhost.key;
+
+    server_name swoole.test;
+    root /app/www/Swoole/;
+    index index.php index.html index.htm;
+    error_log /var/log/nginx/cds_error.log;
+    access_log /var/log/nginx/cds_access.log;
+
+    location / {
+         try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    # 代理转发到swoole处理
+    location ^~ /api {
+        # 将客户端的 Host 和 IP 信息一并转发到对应节点
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+        proxy_connect_timeout 300s;
+        proxy_send_timeout 300s;
+        proxy_read_timeout 300s;
+        # 执行代理访问真实服务器
+        proxy_pass http://php7:9504;
+        index index.php index.html index.htm;
+    }
+
+    # 静态页面访问
+    location ^~ /cms {
+        alias  /app/www/Swoole/dist;
+        index index.html;
+    }
+
+
+    # proxy the PHP scripts to Apache listening on 127.0.0.1:80
+    #
+    #location ~ \.php$ {
+    #    proxy_pass   http://127.0.0.1;
+    #}
+
+    # redirect server error pages to the static page /50x.html
+    #
+    # error_page   500 502 503 504  /50x.html;
+    # location = /50x.html {
+    #    root   /usr/share/nginx/html;
+    # }
+
+    location ~* ^.+\.(js|ico|gif|jpg|jpeg|png|html|htm)$ {
+        log_not_found off;
+        access_log off;
+        expires 7d;
+    }
+
+    location ~ /\.ht {
+        deny all;
+    }
