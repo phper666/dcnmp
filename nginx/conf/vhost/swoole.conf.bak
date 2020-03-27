@@ -35,10 +35,10 @@ server {
 
     # 静态页面访问
     location ^~ /cms {
-        alias  /app/www/Swoole/dist;
+        alias  /app/www/cms/dist;
+        try_files $uri $uri/ /cms/index.html;
         index index.html;
     }
-
 
     # proxy the PHP scripts to Apache listening on 127.0.0.1:80
     #
