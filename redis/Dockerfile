@@ -4,7 +4,7 @@ FROM redis:${REDIS_VERSION}
 ARG TZ
 ARG ALPINE_REPOSITORIES
 
-RUN sed -i "s/dl-cdn.alpinelinux.org/${ALPINE_REPOSITORIES}/g" /etc/apk/repositories
+RUN if [ "${ALPINE_REPOSITORIES_REPLACE}" = "true" ] ; then sed -i "s/dl-cdn.alpinelinux.org/${ALPINE_REPOSITORIES}/g" /etc/apk/repositories ; else echo NO ; fi
 
 # apk update && install bash
 RUN apk update \

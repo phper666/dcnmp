@@ -3,8 +3,9 @@ FROM node:${NODEJS_VERSION}
 
 ARG TZ
 ARG ALPINE_REPOSITORIES
+ARG ALPINE_REPOSITORIES_REPLACE
 
-RUN sed -i "s/dl-cdn.alpinelinux.org/${ALPINE_REPOSITORIES}/g" /etc/apk/repositories
+RUN if [ "${ALPINE_REPOSITORIES_REPLACE}" = "true" ] ; then sed -i "s/dl-cdn.alpinelinux.org/${ALPINE_REPOSITORIES}/g" /etc/apk/repositories ; else echo NO ; fi
 
 # apk update && install
 RUN set -ex \

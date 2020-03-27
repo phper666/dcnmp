@@ -12,7 +12,7 @@ echo "IMAGE_SYSTEM_TYPE         : ${IMAGE_SYSTEM_TYPE}"
 echo "============================================"
 echo
 
-if [ "${ALPINE_REPOSITORIES}" != "" ]; then
+if [ "${ALPINE_REPOSITORIES_REPLACE}" = "true" ]; then
   sed -i "s/dl-cdn.alpinelinux.org/${ALPINE_REPOSITORIES}/g" /etc/apk/repositories
 fi
 
