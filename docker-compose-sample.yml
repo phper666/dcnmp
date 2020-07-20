@@ -217,5 +217,29 @@ services:
     networks:
       - dcnmp
 
+  openjdk:
+    container_name: dcnmp_openjdk
+    build:
+      context: openjdk
+      args:
+        OPENJDK_VERSION: ${OPENJDK_VERSION}
+        ALPINE_REPOSITORIES: ${ALPINE_REPOSITORIES}
+        ALPINE_REPOSITORIES_REPLACE: ${ALPINE_REPOSITORIES_REPLACE}
+        DEBIAN_REPOSITORIES_REPLACE: ${DEBIAN_REPOSITORIES_REPLACE}
+        OPENJDK_MORE_INSTALLER: ${OPENJDK_MORE_INSTALLER}
+    ports:
+      - "${OPENJDK_HOST_PORT_8080}:8080"
+      - "${OPENJDK_HOST_PORT_8081}:8081"
+      - "${OPENJDK_HOST_PORT_8082}:8082"
+      - "${OPENJDK_HOST_PORT_8083}:8083"
+    volumes:
+      - ${JAVA_CODE_PATH}:/app/webapps:rw
+      - ${CONF_PATH}/openjdk/sh:/app/sh:rw
+    restart: always
+    environment:
+      TZ: "${TZ}"
+    networks:
+      - dcnmp
+
 networks:
   dcnmp:
