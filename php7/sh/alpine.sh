@@ -426,5 +426,16 @@ if [[ -z "${PHP_EXTENSIONS##*,xlswriter,*}" ]]; then
   docker-php-ext-enable xlswriter
 fi
 
+if [ -z "${PHP_EXTENSIONS##*,rdkafka,*}" ]; then
+    echo "---------- Install rdkafka ----------"
+    cd "${EXTENSIONS_PATH}"
+    tar -zxvf librdkafka-1.5.0.tar.gz
+    mv librdkafka-1.5.0 /usr/local/src/librdkafka
+    cd /usr/local/src/librdkafka && ./configure && make && make install
+
+    printf "\n" | pecl install rdkafka
+    docker-php-ext-enable rdkafka
+fi
+
 echo "---------- Apk cache delete ----------"
 rm -rf /var/cache/apk/*

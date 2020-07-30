@@ -42,4 +42,5 @@ curl -L https://get.daocloud.io/docker/compose/releases/download/${DOCKER_COMPOS
 chmod +x /usr/local/bin/docker-compose
 
 echo "Docker-compose Version"
+# 如果命令不存在，则需要添加环境变量，在~/.bash_profile或者~/.profile里面的PATH加入/usr/local/bin
 docker-compose version

@@ -19,7 +19,7 @@ if [ "${DEBIAN_REPOSITORIES_REPLACE}" = "true" ]; then
 fi
 
 echo "---------- Install general dependencies ----------"
-apt-get update && apt-get upgrade && apt-get install -y git cmake apt-utils openssl libssl-dev zip unzip libc-dev zlib1g-dev libz-dev libpq-dev libcurl4-openssl-dev
+apt-get update && apt-get upgrade && apt-get install -y git wget cmake apt-utils openssl libssl-dev zip unzip libc-dev zlib1g-dev libz-dev libpq-dev libcurl4-openssl-dev
 
 usermod -u 1000 www-data && groupmod -g 1000 www-data
 
@@ -412,6 +412,17 @@ if [ -z "${PHP_EXTENSIONS##*,xlswriter,*}" ]; then
   echo "---------- Install xlswriter ----------"
   printf "\n" | pecl install xlswriter
   docker-php-ext-enable xlswriter
+fi
+
+if [ -z "${PHP_EXTENSIONS##*,rdkafka,*}" ]; then
+    echo "---------- Install rdkafka ----------"
+    cd "${EXTENSIONS_PATH}"
+    tar -zxvf librdkafka-1.5.0.tar.gz
+    mv librdkafka-1.5.0 /usr/local/src/librdkafka
+    cd /usr/local/src/librdkafka && ./configure && make && make install
+
+    printf "\n" | pecl install rdkafka
+    docker-php-ext-enable rdkafka
 fi
 
 echo "---------- clean cache ----------"
