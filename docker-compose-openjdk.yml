@@ -42,6 +42,7 @@ services:
     volumes:
       - ${JAVA_CODE_PATH}:/app/webapps:rw
       - ${CONF_PATH}/openjdk/sh:/app/sh:rw
+    entrypoint: ["/app/sh/start.sh"]
     restart: always
     environment:
       TZ: "${TZ}"
