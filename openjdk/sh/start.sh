@@ -13,4 +13,8 @@ start1(){
 #        nohup java -jar $space>./space.log &
 #        echo "--------space_pid start success--------------"
 }
+        while true
+        do
+                sleep 1h
+        done
 start1
