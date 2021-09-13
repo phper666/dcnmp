@@ -1,0 +1,4 @@
+ARG MYSQL_VERSION
+FROM mysql:${MYSQL_VERSION}
+
+RUN chmod 0777 -R /var/log

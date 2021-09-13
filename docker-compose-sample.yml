@@ -96,6 +96,41 @@ services:
     networks:
       - dcnmp
 
+  php8:
+    container_name: dcnmp_php8
+    build:
+      context: php8
+      args:
+        ALPINE_REPOSITORIES: ${ALPINE_REPOSITORIES}
+        ALPINE_REPOSITORIES_REPLACE: ${ALPINE_REPOSITORIES_REPLACE}
+        DEBIAN_REPOSITORIES_REPLACE: ${DEBIAN_REPOSITORIES_REPLACE}
+        PHP_VERSION: ${PHP8_VERSION}
+        PHP_EXTENSIONS: ${PHP8_EXTENSIONS}
+        PHP_MORE_EXTENSION_INSTALLER: ${PHP8_MORE_EXTENSION_INSTALLER}
+        PHP_SWOOLE_VERSION: ${PHP8_SWOOLE_VERSION}
+        PHP_REPLACE_SOURCE: ${PHP8_REPLACE_SOURCE}
+        PHP_INSTALL_SUPERVISOR: ${PHP8_INSTALL_SUPERVISOR}
+        TZ: ${TZ}
+    ports:
+      - "${PHP8_HOST_PORT_9002}:9002"
+      - "${PHP8_HOST_PORT_9505}:9505"
+      - "${PHP8_HOST_PORT_9506}:9506"
+      - "${PHP8_HOST_PORT_18308}:18308"
+    volumes:
+      - ${CODE_PATH}:/app/www/:rw
+      - ${CONF_PATH}/php8/conf/php.ini:/usr/local/etc/php/php.ini:ro
+      - ${CONF_PATH}/php8/conf/php-fpm.conf:/usr/local/etc/php-fpm.d/www.conf:rw
+      - ${CONF_PATH}/php8/conf/zz-docker.conf:/usr/local/etc/php-fpm.d/zz-docker.conf:rw
+      - ${CONF_PATH}/php8/conf/supervisor:/etc/supervisor:rw
+      - ${LOG_PATH}/${PHP8_VERSION}:/var/log/php:rw
+    restart: always
+    stdin_open: true
+    tty: true
+    cap_add:
+      - SYS_PTRACE
+    networks:
+      - dcnmp
+
   mysql:
     container_name: dcnmp_mysql
     build:

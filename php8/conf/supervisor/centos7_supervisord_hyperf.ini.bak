@@ -1,0 +1,18 @@
+[program:worker-hyperf]
+process_name=%(program_name)s_%(process_num)02d
+command=docker exec -i -w /var/www/html/hyperf/bin/ dcnmp_php72_1 php hyperf.php start
+# 以哪个用户来运行该进程
+user=root
+# supervisord 启动时自动该应用
+autostart=true
+# 进程退出后自动重启进程
+autorestart=true
+# 重试间隔秒数
+startsecs=8
+# 重试次数
+startretries=3
+# stderr 日志输出位置
+stderr_logfile=/app/log/hyperf/hyperf-stderr.log
+# stdout 日志输出位置
+stdout_logfile=/app/log/hyperf-stdout.log
+
