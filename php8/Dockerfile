@@ -7,9 +7,9 @@ ARG ALPINE_REPOSITORIES_REPLACE
 ARG DEBIAN_REPOSITORIES_REPLACE
 ARG PHP_EXTENSIONS
 ARG PHP_MORE_EXTENSION_INSTALLER
-ARG PHP_SWOOLE_VERSION
 ARG PHP_REPLACE_SOURCE
 ARG PHP_INSTALL_SUPERVISOR
+ARG PHP_INSTALL_EXTENSION_SCRIPT
 
 RUN cd /home
 
@@ -23,6 +23,10 @@ COPY sh /tmp/extensions
 COPY soft /var/local/soft
 COPY source /var/local/source
 WORKDIR /tmp/extensions
+
+# 安装install-php-extensions脚本，github地址:https://github.com/mlocati/docker-php-extension-installer
+ADD ./extensions/install-php-extensions  /usr/local/bin/
+RUN chmod uga+x /usr/local/bin/install-php-extensions
 
 #使用$(nproc)在mac下会出现错误，现在还找不到解决方法，下面的数值是你的cpu核数，linux环境可以直接用
 ENV MC="-j2"
