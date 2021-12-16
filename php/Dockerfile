@@ -11,6 +11,7 @@ ARG PHP_REPLACE_SOURCE
 ARG PHP_INSTALL_SUPERVISOR
 ARG PHP_INSTALL_ALIYUN_OSS_SDK
 ARG PHP_ALIYUN_OSS_SDK_VERSION
+ARG PHP_INSTALL_EXTENSION_SCRIPT
 
 RUN cd /home
 
@@ -25,6 +26,10 @@ COPY sdk /tmp/extensions
 COPY soft /var/local/soft
 COPY source /var/local/source
 WORKDIR /tmp/extensions
+
+# 安装install-php-extensions脚本，github地址:https://github.com/mlocati/docker-php-extension-installer
+ADD ./extensions/install-php-extensions  /usr/local/bin/
+RUN chmod +x /usr/local/bin/install-php-extensions && install-php-extensions
 
 #使用$(nproc)在mac下会出现错误，现在还找不到解决方法，下面的数值是你的cpu核数，linux环境可以直接用
 ENV MC="-j2"

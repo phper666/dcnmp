@@ -26,7 +26,7 @@ WORKDIR /tmp/extensions
 
 # 安装install-php-extensions脚本，github地址:https://github.com/mlocati/docker-php-extension-installer
 ADD ./extensions/install-php-extensions  /usr/local/bin/
-RUN chmod uga+x /usr/local/bin/install-php-extensions
+RUN chmod +x /usr/local/bin/install-php-extensions && install-php-extensions
 
 #使用$(nproc)在mac下会出现错误，现在还找不到解决方法，下面的数值是你的cpu核数，linux环境可以直接用
 ENV MC="-j2"
