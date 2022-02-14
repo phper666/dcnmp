@@ -9,6 +9,7 @@ echo "Multicore Compilation     : ${MC}"
 echo "Work directory            : ${PWD}"
 echo "time                      : ${TZ}"
 echo "PHP_INSTALL_EXTENSION_SCRIPT              : ${PHP_INSTALL_EXTENSION_SCRIPT}"
+echo "PHP_SWOOLE_VERSION              : ${PHP_SWOOLE_VERSION}"
 echo "============================================"
 echo
 
@@ -575,10 +576,10 @@ if [ -z "${PHP_EXTENSIONS##*,swoole,*}" ]; then
   if [ "${PHP_INSTALL_EXTENSION_SCRIPT}" = "pecl" ]; then
     apk add --no-cache c-ares-dev
     apk add --no-cache curl-dev
-    pecl install --configureoptions 'enable-sockets="no" enable-openssl="yes" enable-http2="yes" enable-mysqlnd="yes" enable-swoole-json="no" enable-swoole-curl="yes" enable-cares="yes"' swoole
+    pecl install --configureoptions 'enable-sockets="no" enable-openssl="yes" enable-http2="yes" enable-mysqlnd="yes" enable-swoole-json="no" enable-swoole-curl="yes" enable-cares="yes"' ${PHP_SWOOLE_VERSION}
     docker-php-ext-enable swoole
   elif [ "${PHP_INSTALL_EXTENSION_SCRIPT}" = "install-php-extensions" ]; then
-    install-php-extensions swoole
+    install-php-extensions ${PHP_SWOOLE_VERSION}
   else
     echo "only support pecl or install-php-extensions"
   fi

@@ -9,9 +9,8 @@ ARG PHP_EXTENSIONS
 ARG PHP_MORE_EXTENSION_INSTALLER
 ARG PHP_REPLACE_SOURCE
 ARG PHP_INSTALL_SUPERVISOR
-ARG PHP_INSTALL_ALIYUN_OSS_SDK
-ARG PHP_ALIYUN_OSS_SDK_VERSION
 ARG PHP_INSTALL_EXTENSION_SCRIPT
+ARG PHP_SWOOLE_VERSION
 
 RUN cd /home
 
@@ -22,7 +21,6 @@ RUN curl -o /usr/bin/composer https://mirrors.aliyun.com/composer/composer.phar 
 
 COPY extensions /tmp/extensions
 COPY sh /tmp/extensions
-COPY sdk /tmp/extensions
 COPY soft /var/local/soft
 COPY source /var/local/source
 WORKDIR /tmp/extensions

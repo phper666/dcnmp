@@ -97,7 +97,8 @@ PHP56_EXTENSIONS=opcache,redis                 # PHP 5.6要安装的扩展列表
     docker-compose build php7
     docker-compose up -d
     ```
-可用的扩展请看同文件的`PHP extensions`注释块说明。
+可用的扩展请看同文件的`PHP extensions`注释块说明。   
+如果需要更多的扩展，可以在alpine.sh和debian.sh中新增扩展
 
 ## 4.添加快捷命令
 在开发的时候，我们可能经常使用`docker exec -it`切换到容器中，把常用的做成命令别名是个省事的方法。
