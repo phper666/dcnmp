@@ -151,6 +151,25 @@ services:
     networks:
       - dcnmp
 
+  mysql8:
+    container_name: dcnmp_mysql8
+    build:
+      context: mysql8
+      args:
+        MYSQL_VERSION: ${MYSQL8_VERSION}
+    ports:
+      - "${MYSQL8_HOST_PORT}:3306"
+    volumes:
+      - ${CONF_PATH}/mysql8/conf/mysql.cnf:/etc/mysql/conf.d/mysql.cnf:rw
+      - ${DATA_PATH}/mysql8:/var/lib/mysql:rw
+      - ${LOG_PATH}/mysql8:/var/log/mysql:rw
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: "${MYSQL8_ROOT_PASSWORD}"
+      TZ: "${TZ}"
+    networks:
+      - dcnmp
+
   mongodb:
     container_name: dcnmp_mongodb
     build:
