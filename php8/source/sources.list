@@ -10,12 +10,12 @@
 #deb-src http://mirrors.aliyun.com/debian/ buster-backports main non-free contrib
 
 #阿里源
-deb http://mirrors.aliyun.com/debian stable main contrib non-free
-deb http://mirrors.aliyun.com/debian stable-proposed-updates main contrib non-free
-deb http://mirrors.aliyun.com/debian stable-updates main contrib non-free
-deb-src http://mirrors.aliyun.com/debian stable main contrib non-free
-deb-src http://mirrors.aliyun.com/debian stable-proposed-updates main contrib non-free
-deb-src http://mirrors.aliyun.com/debian stable-updates main contrib non-free
+#deb http://mirrors.aliyun.com/debian stable main contrib non-free
+#deb http://mirrors.aliyun.com/debian stable-proposed-updates main contrib non-free
+#deb http://mirrors.aliyun.com/debian stable-updates main contrib non-free
+#deb-src http://mirrors.aliyun.com/debian stable main contrib non-free
+#deb-src http://mirrors.aliyun.com/debian stable-proposed-updates main contrib non-free
+#deb-src http://mirrors.aliyun.com/debian stable-updates main contrib non-free
 
 #阿里源
 #deb http://mirrors.aliyun.com/debian/ stretch main non-free contrib
@@ -38,12 +38,12 @@ deb-src http://mirrors.aliyun.com/debian stable-updates main contrib non-free
 #deb-src http://mirrors.163.com/debian-security/ buster/updates main non-free contrib
 
 #腾讯源
-#deb http://mirrors.cloud.tencent.com/debian/ buster main non-free contrib
-#deb http://mirrors.cloud.tencent.com/debian-security buster/updates main
-#deb http://mirrors.cloud.tencent.com/debian/ buster-updates main non-free contrib
+deb http://mirrors.cloud.tencent.com/debian/ buster main non-free contrib
+deb http://mirrors.cloud.tencent.com/debian-security buster/updates main
+deb http://mirrors.cloud.tencent.com/debian/ buster-updates main non-free contrib
 #deb http://mirrors.cloud.tencent.com/debian/ buster-backports main non-free contrib
-#deb-src http://mirrors.cloud.tencent.com/debian-security buster/updates main
-#deb-src http://mirrors.cloud.tencent.com/debian/ buster main non-free contrib
-#deb-src http://mirrors.cloud.tencent.com/debian/ buster-updates main non-free contrib
+deb-src http://mirrors.cloud.tencent.com/debian-security buster/updates main
+deb-src http://mirrors.cloud.tencent.com/debian/ buster main non-free contrib
+deb-src http://mirrors.cloud.tencent.com/debian/ buster-updates main non-free contrib
 #deb-src http://mirrors.cloud.tencent.com/debian/ buster-backports main non-free contrib
 
