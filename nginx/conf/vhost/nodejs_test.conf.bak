@@ -46,7 +46,7 @@ server {
         client_body_buffer_size 128k;
     }
 
-    location ~* ^.+\.(js|ico|gif|jpg|jpeg|png|html|htm)$ {
+    location ~* ^.+\.(css|js|ico|gif|jpg|jpeg|png|html|htm)$ {
         log_not_found off;
         access_log off;
         expires 7d;

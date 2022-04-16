@@ -6,9 +6,10 @@ echo '--------------------start------------------------'
 
 if [ "${DEBIAN_REPOSITORIES_REPLACE}" = "true" ]; then
   echo "---------- php replace source ----------"
-  mv /etc/apt/sources.list /etc/apt/sources.list.bak
-  mv /var/local/source/sources.list /etc/apt/sources.list
-  rm -rf /var/local/source
+  cp /etc/apt/sources.list /etc/apt/sources.list.bak
+  sed -i "s/deb.debian.org/${DEBIAN_REPOSITORIES}/" /etc/apt/sources.list
+  sed -i "s/security.debian.org/${DEBIAN_REPOSITORIES}/" /etc/apt/sources.list
+  sed -i "s/security-cdn.debian.org/${DEBIAN_REPOSITORIES}/" /etc/apt/sources.list
 fi
 
 if [ "${TZ}" != "" ]; then

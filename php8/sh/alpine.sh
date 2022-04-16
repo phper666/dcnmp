@@ -14,6 +14,8 @@ echo "============================================"
 echo
 
 if [ "${ALPINE_REPOSITORIES_REPLACE}" = "true" ]; then
+  echo "---------- php replace source ----------"
+  cp /etc/apk/repositories /etc/apk/repositories.bak
   sed -i "s/dl-cdn.alpinelinux.org/${ALPINE_REPOSITORIES}/g" /etc/apk/repositories
 fi
 

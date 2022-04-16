@@ -1,4 +1,4 @@
-#想用哪个源，就去掉注释，然后把原有使用的源注释，如果全部注释则会用默认源
+#当前文件已经没有被用到，只是标注有哪些源可用，实际源的切换地址放到了env文件里面
 #阿里源
 deb http://mirrors.aliyun.com/debian stable main contrib non-free
 deb http://mirrors.aliyun.com/debian stable-proposed-updates main contrib non-free
@@ -6,6 +6,7 @@ deb http://mirrors.aliyun.com/debian stable-updates main contrib non-free
 deb-src http://mirrors.aliyun.com/debian stable main contrib non-free
 deb-src http://mirrors.aliyun.com/debian stable-proposed-updates main contrib non-free
 deb-src http://mirrors.aliyun.com/debian stable-updates main contrib non-free
+
 
 #阿里源 https://developer.aliyun.com/mirror/debian
 #deb http://mirrors.aliyun.com/debian/ buster main non-free contrib
