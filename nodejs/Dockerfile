@@ -10,7 +10,7 @@ RUN if [ "${ALPINE_REPOSITORIES_REPLACE}" = "true" ] ; then sed -i "s/dl-cdn.alp
 # apk update && install
 RUN set -ex \
         && apk update \
-        && apk add --no-cache bash bash-doc bash-completion git python make openssl tar tzdata \
+        && apk add --no-cache bash bash-doc bash-completion git python3 g++ make openssl tar tzdata \
         && cp "/usr/share/zoneinfo/$TZ" /etc/localtime \
         && echo "$TZ" > /etc/timezone \
         && rm -rf /var/cache/apk/*
