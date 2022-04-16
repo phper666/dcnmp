@@ -55,7 +55,6 @@ fi
 
 if [ -z "${PHP_EXTENSIONS##*,zip,*}" ]; then
   echo "---------- Install zip ----------"
-  apt-get install -y libzip-dev
   if [ "${PHP_INSTALL_EXTENSION_SCRIPT}" = "pecl" ]; then
     apk add --no-cache libzip-dev
     docker-php-ext-install ${MC} zip
