@@ -1,3 +1,6 @@
+upstream webman {
+    server php8:9506;
+}
 server {
     listen 80;
     listen [::]:80;
@@ -8,8 +11,8 @@ server {
     #ssl_certificate /etc/nginx/conf.d/certs/localhost/localhost.crt;
     #ssl_certificate_key /etc/nginx/conf.d/certs/localhost/localhost.key;
 
-    server_name swoole.test;
-    root /app/www/swoole/;
+    server_name webman.test;
+    root /app/www/webman/;
     index index.php index.html index.htm;
 
     if ($time_iso8601 ~ "^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})"){
@@ -21,14 +24,14 @@ server {
         set $seconds $6;
     }
     #可以使用$x来切割日志，比如/var/log/nginx/$1_$2_$3_error.log;
-    error_log /var/log/nginx/swoole_error.log;
-    access_log /var/log/nginx/swoole_access.log;
+    error_log /var/log/nginx/webman_error.log;
+    access_log /var/log/nginx/webman_access.log;
 
     location / {
          try_files $uri $uri/ /index.php?$query_string;
     }
 
-    # 代理转发到swoole处理
+    # 代理转发到webman处理
     location ^~ /api {
         # 将客户端的 Host 和 IP 信息一并转发到对应节点
         proxy_set_header Host $http_host;
@@ -39,13 +42,13 @@ server {
         proxy_send_timeout 300s;
         proxy_read_timeout 300s;
         # 执行代理访问真实服务器
-        proxy_pass http://php7:9504;
+        proxy_pass http://webman;
         index index.php index.html index.htm;
     }
 
     # 静态页面访问
-    location ^~ /cms {
-        alias  /app/www/cms/dist;
+    location ^~ /webman {
+        alias  /app/www/webman/dist;
         try_files $uri $uri/ /cms/index.html;
         index index.html;
     }
