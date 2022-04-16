@@ -39,7 +39,7 @@ server {
         proxy_send_timeout 300s;
         proxy_read_timeout 300s;
         # 执行代理访问真实服务器
-        proxy_pass http://127.0.0.1:9504;
+        proxy_pass http://php8:9504;
         index index.php index.html index.htm;
     }
 

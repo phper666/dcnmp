@@ -1,5 +1,5 @@
 upstream webman {
-    server 127.0.0.1:9506;
+    server php8:9506;
 }
 server {
     listen 80;
