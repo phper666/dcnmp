@@ -20,9 +20,9 @@ server {
         set $minutes $5;
         set $seconds $6;
     }
-    #可以使用$x来切割日志，比如/var/log/nginx/$1_$2_$3_error.log;
+    #可以使用${x}来切割日志，比如/var/log/nginx/${year}_${month}_${day}_access.log;错误日志不支持事件参数，所以无法分隔
     error_log /var/log/nginx/swoole_error.log;
-    access_log /var/log/nginx/swoole_access.log;
+    access_log /var/log/nginx/swoole_${year}_${month}_${day}_access.log;
 
     location / {
          try_files $uri $uri/ /index.php?$query_string;
@@ -39,7 +39,7 @@ server {
         proxy_send_timeout 300s;
         proxy_read_timeout 300s;
         # 执行代理访问真实服务器
-        proxy_pass http://php7:9504;
+        proxy_pass http://127.0.0.1:9504;
         index index.php index.html index.htm;
     }
 

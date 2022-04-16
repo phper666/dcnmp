@@ -24,8 +24,8 @@ slow-query-log-file     = /var/log/mysql/mysql.slow.log
 log-error               = /var/log/mysql/mysql.error.log
 
 default-time-zone       = '+8:00'
-# 允许最大连接数，不设置则默认为151，这里改为500，最大支持16384，按个人的需求去该，如果并发高，可以配置大一点，不过一般性能都在于磁盘的I/O，服务器配置好的话，可以配置高点
-max_connections         = 500
+# 允许最大连接数，不设置则默认为151，这里改为400，最大支持16384，按个人的需求去该，如果并发高，可以配置大一点，不过一般性能都在于磁盘的I/O，服务器配置好的话，可以配置高点
+max_connections         = 400
 
 [mysql]
 default-character-set   = utf8mb4
