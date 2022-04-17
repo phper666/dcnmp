@@ -1,3 +1,7 @@
+upstream swoole {
+    server php8:9505;
+}
+
 server {
     listen 80;
     listen [::]:80;
@@ -30,6 +34,7 @@ server {
 
     # 代理转发到swoole处理
     location ^~ /api {
+        proxy_http_version 1.1;
         # 将客户端的 Host 和 IP 信息一并转发到对应节点
         proxy_set_header Host $http_host;
         proxy_set_header X-Real-IP $remote_addr;
@@ -39,7 +44,7 @@ server {
         proxy_send_timeout 300s;
         proxy_read_timeout 300s;
         # 执行代理访问真实服务器
-        proxy_pass http://php8:9504;
+        proxy_pass http://swoole;
         index index.php index.html index.htm;
     }
 
