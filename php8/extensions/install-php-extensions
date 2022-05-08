@@ -17,7 +17,7 @@ if ! which docker-php-ext-configure >/dev/null || ! which docker-php-ext-enable 
 	exit 1
 fi
 
-IPE_VERSION=1.5.12
+IPE_VERSION=1.5.13
 
 StandWithUkraine() {
 	if test -t 1 && ! grep -Eq '^VERSION=.*jessie' /etc/os-release; then
@@ -2508,13 +2508,6 @@ installRemoteModule() {
 			fi
 			# event must be loaded after sockets
 			installRemoteModule_ini_basename="xx-php-ext-$installRemoteModule_module"
-			;;
-		excimer)
-			if test -z "$installRemoteModule_version"; then
-				if test $PHP_MAJMIN_VERSION -le 701; then
-					installRemoteModule_version=1.0.2
-				fi
-			fi
 			;;
 		gearman)
 			if test -z "$installRemoteModule_version"; then
