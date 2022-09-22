@@ -153,3 +153,6 @@ nodejs官方镜像有三种，但是目前我们要选择-alpine后缀的，容�
 
 ## 10.swoole框架建议
 1、建议直接在宿主机使用supervisord来管理项目
+
+## 11.新增 
+1、新增了postgres + sonarqube的服务，sonarqube以来postgres数据库，docker的depends_on并不能完全等postgres服务完全起来，所以如果你遇到sonarqube起来了但是访问不了，请restart以下sonarqube服务
