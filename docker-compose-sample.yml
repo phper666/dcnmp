@@ -249,6 +249,7 @@ services:
         TZ: ${TZ}
     ports:
       - "${REDISMYADMIN_HOST_PORT}:80"
+    restart: always
     environment:
       REDIS_1_HOST: "redis"
       REDIS_1_PORT: "6379"
@@ -303,13 +304,13 @@ services:
 
   ### PostgreSQL ###########################################
   postgres:
+    container_name: dcnmp_postgres
     build:
       context: postgres
       args:
         - POSTGRES_VERSION=${POSTGRES_VERSION}
     volumes:
       - ${DATA_PATH}/postgres:/var/lib/postgresql/data
-      - ${CONF_PATH}/postgres/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
     restart: always
     ports:
       - "${POSTGRES_PORT}:5432"
@@ -321,11 +322,16 @@ services:
       - SONARQUBE_POSTGRES_DB=${SONARQUBE_POSTGRES_DB}
       - SONARQUBE_POSTGRES_USER=${SONARQUBE_POSTGRES_USER}
       - SONARQUBE_POSTGRES_PASSWORD=${SONARQUBE_POSTGRES_PASSWORD}
+      - GITLAB_POSTGRES_INIT=${GITLAB_POSTGRES_INIT}
+      - GITLAB_POSTGRES_USER=${GITLAB_POSTGRES_USER}
+      - GITLAB_POSTGRES_PASSWORD=${GITLAB_POSTGRES_PASSWORD}
+      - GITLAB_POSTGRES_DB=${GITLAB_POSTGRES_DB}
     networks:
       - dcnmp
 
   ### PostgreSQL PostGis ###################################
   postgres-postgis:
+    container_name: dcnmp_postgres_postgis
     build:
       context: postgres-postgis
       args:
@@ -333,7 +339,6 @@ services:
         - INSTALL_PGSQL_HTTP_FOR_POSTGIS13=${POSTGIS_INSTALL_PGSQL_HTTP_FOR_POSTGIS13}
     volumes:
       - ${DATA_PATH}/postgres:/var/lib/postgresql/data
-    restart: always
     ports:
       - "${POSTGRES_PORT}:5432"
     environment:
@@ -345,17 +350,18 @@ services:
 
   ### SONARQUBE ################################################
   sonarqube:
+    container_name: dcnmp_sonarqube
     build:
       context: sonarqube
       args:
         - SONARQUBE_VERSION=${SONARQUBE_VERSION}
+    restart: always
     volumes:
       - ${DATA_PATH}/sonarqube/conf:/opt/sonarqube/conf
       - ${DATA_PATH}/sonarqube/data:/opt/sonarqube/data
-      - ${DATA_PATH}/sonarqube/logs:/opt/sonarqube/logs
+      - ${LOG_PATH}/sonarqube:/opt/sonarqube/logs
       - ${DATA_PATH}/sonarqube/extensions:/opt/sonarqube/extensions
       - ${DATA_PATH}/sonarqube/plugins:/opt/sonarqube/lib/bundled-plugins
-    restart: always
     ports:
       - ${SONARQUBE_PORT}:9000
     depends_on:
@@ -369,3 +375,4 @@ services:
 
 networks:
   dcnmp:
+

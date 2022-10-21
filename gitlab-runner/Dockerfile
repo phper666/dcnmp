@@ -1,0 +1,3 @@
+ARG GITLAB_RUNNER_VERSION=latest
+
+FROM gitlab/gitlab-runner:${GITLAB_RUNNER_VERSION}

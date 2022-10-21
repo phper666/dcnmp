@@ -54,6 +54,7 @@ services:
         - POSTGRES_VERSION=${POSTGRES_VERSION}
     volumes:
       - ${DATA_PATH}/postgres:/var/lib/postgresql/data
+      - ${CONF_PATH}/postgres/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
     restart: always
     ports:
       - "${POSTGRES_PORT}:5432"
@@ -82,6 +83,7 @@ services:
 #        - INSTALL_PGSQL_HTTP_FOR_POSTGIS13=${POSTGIS_INSTALL_PGSQL_HTTP_FOR_POSTGIS13}
 #    volumes:
 #      - ${DATA_PATH}/postgres:/var/lib/postgresql/data
+#    restart: always
 #    ports:
 #      - "${POSTGRES_PORT}:5432"
 #    environment:
@@ -91,28 +93,61 @@ services:
 #    networks:
 #      - dcnmp
 
-  ### SONARQUBE ################################################
-  sonarqube:
-    container_name: dcnmp_sonarqube
+  ### Gitlab ################################################
+  gitlab:
+    container_name: dcnmp_gitlab
     build:
-      context: sonarqube
+      context: gitlab
       args:
-        - SONARQUBE_VERSION=${SONARQUBE_VERSION}
-    restart: always
-    volumes:
-      - ${DATA_PATH}/sonarqube/conf:/opt/sonarqube/conf
-      - ${DATA_PATH}/sonarqube/data:/opt/sonarqube/data
-      - ${LOG_PATH}/sonarqube:/opt/sonarqube/logs
-      - ${DATA_PATH}/sonarqube/extensions:/opt/sonarqube/extensions
-      - ${DATA_PATH}/sonarqube/plugins:/opt/sonarqube/lib/bundled-plugins
-    ports:
-      - ${SONARQUBE_PORT}:9000
-    depends_on:
-      - postgres
+        - GITLAB_VERSION=${GITLAB_VERSION}
     environment:
-      - sonar.jdbc.username=${SONARQUBE_POSTGRES_USER}
-      - sonar.jdbc.password=${SONARQUBE_POSTGRES_PASSWORD}
-      - sonar.jdbc.url=jdbc:postgresql://${SONARQUBE_POSTGRES_HOST}:5432/${SONARQUBE_POSTGRES_DB}
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url '${GITLAB_DOMAIN_NAME}'
+        redis['enable'] = false
+        nginx['listen_https'] = false
+        nginx['listen_port'] = 80
+        nginx['custom_gitlab_server_config'] = "real_ip_header X-Real-IP;\nreal_ip_recursive on;"
+        postgresql['enable'] = false
+        gitlab_rails['trusted_proxies'] = ['caddy','nginx','apache2']
+        gitlab_rails['redis_host'] = 'redis'
+        gitlab_rails['redis_database'] = 8
+        gitlab_rails['db_host'] = '${GITLAB_POSTGRES_HOST}'
+        gitlab_rails['db_username'] = '${GITLAB_POSTGRES_USER}'
+        gitlab_rails['db_password'] = '${GITLAB_POSTGRES_PASSWORD}'
+        gitlab_rails['db_database'] = '${GITLAB_POSTGRES_DB}'
+        gitlab_rails['initial_root_password'] = '${GITLAB_ROOT_PASSWORD}'
+        gitlab_rails['gitlab_shell_ssh_port'] = ${GITLAB_HOST_SSH_PORT}
+    volumes:
+      - ${CONF_PATH}/gitlab/conf:/etc/gitlab
+      - ${DATA_PATH}/gitlab/data:/var/opt/gitlab
+      - ${LOG_PATH}/gitlab:/var/log/gitlab
+    ports:
+      - "${GITLAB_HOST_HTTP_PORT}:80"
+      - "${GITLAB_HOST_HTTPS_PORT}:443"
+      - "${GITLAB_HOST_SSH_PORT}:22"
+    depends_on:
+      - redis
+      - postgres
+    restart: always
+    networks:
+      - dcnmp
+
+  gitlab-runner:
+    container_name: dcnmp_gitlab_runner
+    build:
+      context: gitlab-runner
+      args:
+        - GITLAB_RUNNER_VERSION=${GITLAB_RUNNER_VERSION}
+    environment:
+      - CI_SERVER_URL=${GITLAB_CI_SERVER_URL}
+      - REGISTRATION_TOKEN=${GITLAB_RUNNER_REGISTRATION_TOKEN}
+      - RUNNER_NAME=dcnmp-gitlab-runner
+      - REGISTER_NON_INTERACTIVE=${GITLAB_REGISTER_NON_INTERACTIVE}
+      - RUNNER_EXECUTOR=shell
+    volumes:
+      - ${CONF_PATH}/gitlab-runner/conf:/etc/gitlab-runner
+      - /var/run/docker.sock:/var/run/docker.sock:rw
+    restart: always
     networks:
       - dcnmp
 
