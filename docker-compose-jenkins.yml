@@ -1,0 +1,25 @@
+version: "3"
+services:
+  jenkins:
+    container_name: jenkins
+    build:
+      context: jenkins
+      args:
+        - JENKINS_VERSION=${JENKINS_VERSION}
+    environment:
+      JAVA_OPTS: "-Djava.util.logging.config.file=/var/jenkins_log/log.properties"
+    ports:
+      - "${JENKINS_HTTP_PORT}:8080"
+      - "${JENKINS_PORT_50000}:50000"
+    user: root
+    restart: always
+    privileged: true
+    volumes:
+      - ${DATA_PATH}/jenkins/jenkins_home:/var/jenkins_home
+      - ${LOG_PATH}/jenkins:/var/jenkins_log
+      - ${JENKINS_HOST_DOCKER_DOCK}:/var/run/docker.sock
+      - ${JENKINS_HOST_DOCKER_PATH}:/usr/bin/docker
+
+networks:
+  dcnmp:
+

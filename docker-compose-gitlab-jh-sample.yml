@@ -108,39 +108,40 @@ services:
 #    networks:
 #      - dcnmp
 
-  ### Gitlab ################################################
-  gitlab:
-    container_name: dcnmp_gitlab
+  ### Gitlab JH ################################################
+  gitlab-jh:
+    container_name: dcnmp_gitlab_jh
     build:
-      context: gitlab
+      context: gitlab-jh
       args:
-        - GITLAB_VERSION=${GITLAB_VERSION}
+        - GITLAB_JH_VERSION=${GITLAB_JH_VERSION}
     environment:
       GITLAB_OMNIBUS_CONFIG: |
-        external_url '${GITLAB_DOMAIN_NAME}'
-        redis['enable'] = ${GITLAB_REDIS_ENABLE}
+        external_url '${GITLAB_JH_DOMAIN_NAME}'
+        redis['enable'] = ${GITLAB_JH_REDIS_ENABLE}
         nginx['listen_https'] = false
         nginx['listen_port'] = 80
         nginx['custom_gitlab_server_config'] = "real_ip_header X-Real-IP;\nreal_ip_recursive on;"
         postgresql['enable'] = false
         gitlab_rails['trusted_proxies'] = ['caddy','nginx','apache2']
-        gitlab_rails['redis_host'] = '${REDIS_HOST}'
-        gitlab_rails['redis_port'] = ${REDIS_PORT}
-        gitlab_rails['redis_database'] = ${REDIS_DATABASE}
-        gitlab_rails['db_host'] = '${GITLAB_POSTGRES_HOST}'
-        gitlab_rails['db_username'] = '${GITLAB_POSTGRES_USER}'
-        gitlab_rails['db_password'] = '${GITLAB_POSTGRES_PASSWORD}'
-        gitlab_rails['db_database'] = '${GITLAB_POSTGRES_DB}'
-        gitlab_rails['initial_root_password'] = '${GITLAB_ROOT_PASSWORD}'
-        gitlab_rails['gitlab_shell_ssh_port'] = ${GITLAB_HOST_SSH_PORT}
+        gitlab_rails['redis_host'] = '${REDIS_JH_HOST}'
+        gitlab_rails['redis_port'] = ${REDIS_JH_PORT}
+        gitlab_rails['redis_database'] = ${REDIS_JH_DATABASE}
+        gitlab_rails['db_host'] = '${GITLAB_JH_POSTGRES_HOST}'
+        gitlab_rails['db_username'] = '${GITLAB_JH_POSTGRES_USER}'
+        gitlab_rails['db_password'] = '${GITLAB_JH_POSTGRES_PASSWORD}'
+        gitlab_rails['db_database'] = '${GITLAB_JH_POSTGRES_DB}'
+        gitlab_rails['initial_root_password'] = '${GITLAB_JH_ROOT_PASSWORD}'
+        gitlab_rails['gitlab_shell_ssh_port'] = ${GITLAB_JH_HOST_SSH_PORT}
     volumes:
-      - ${CONF_PATH}/gitlab/conf:/etc/gitlab
-      - ${DATA_PATH}/gitlab/data:/var/opt/gitlab
-      - ${LOG_PATH}/gitlab:/var/log/gitlab
+      - ${CONF_PATH}/gitlab-jh/conf:/etc/gitlab
+      - ${DATA_PATH}/gitlab-jh/data:/var/opt/gitlab
+      - ${LOG_PATH}/gitlab-jh:/var/log/gitlab
     ports:
-      - "${GITLAB_HOST_HTTP_PORT}:80"
-      - "${GITLAB_HOST_HTTPS_PORT}:443"
-      - "${GITLAB_HOST_SSH_PORT}:22"
+      - "${GITLAB_JH_HOST_HTTP_PORT}:80"
+      - "${GITLAB_JH_HOST_HTTPS_PORT}:443"
+      - "${GITLAB_JH_HOST_SSH_PORT}:22"
+      - "${GITLAB_JH_HOST_NOTICE_PORT}:8929"
     depends_on:
       - redis
       - postgres
