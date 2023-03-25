@@ -158,6 +158,12 @@ nodejs官方镜像有三种，但是目前我们要选择-alpine后缀的，容�
 1、新增了postgres + sonarqube的服务，sonarqube依赖postgres数据库，docker的depends_on并不能完全等postgres服务完全起来，所以如果你遇到sonarqube起来了但是访问不了，请restart以下sonarqube服务  
 2、nexus3的admin密码必须要进入容器才能知道  
 ```bash
-# nexus3默认的admin登录密码必须要进入nexus容器才能知道
-docker exec -it 容器id bash  && cat cat /opt/sonatype/sonatype-work/nexus/admin.password
+# nexus3默认的admin登录密码进入nexus容器查或者${DATA_PATH}/nexus3查
+用户名默认为：admin
+进入容器查：docker exec -it 容器id bash  && cat /opt/sonatype/sonatype-work/nexus3/admin.password
+直接在宿主机查：cat ${DATA_PATH}/nexus3/admin.password
+${DATA_PATH}是你.env里面配置的路径
 ```
+
+## 12.更新记录
+[更新记录](./version.md)
