@@ -1,0 +1,4 @@
+ARG VAULTWARDEN_VERSION=latest
+
+FROM vaultwarden/server:${VAULTWARDEN_VERSION}
+

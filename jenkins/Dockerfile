@@ -1,0 +1,3 @@
+ARG JENKINS_VERSION=latest
+
+FROM jenkins/jenkins:${JENKINS_VERSION}
