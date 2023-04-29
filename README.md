@@ -111,6 +111,10 @@ alias dphp7='docker exec -it dcnmp_php7 /bin/sh'
 alias dmysql='docker exec -it dcnmp_mysql /bin/bash'
 alias dredis='docker exec -it dcnmp_redis /bin/sh'
 ```
+```bash
+# 还需要运行加载才会生效
+source ~/.bashrc
+```
 其它的服务一样，自行设置
 
 ## 5.配置文件说明
