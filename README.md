@@ -4,7 +4,7 @@
 3、php扩展去掉了大部分压缩包安装，因为扩展一更新，需要去下载最新扩展覆盖，太麻烦，所以采用了pecl和install-php-extensions安装，后续会慢慢去掉pecl安装，因为install-php-extensions非常的强大，支持安装的扩展也非常多。采用pecl安装扩展有一个弊端，那就是如果安装的扩展有其它依赖，你需要先安装依赖才能安装扩展。使用install-php-extensions就不一样，install-php-extensions的作者已经写好了支持扩展需要的依赖，你安装扩展时，会自动帮你安装依赖，github地址：https://github.com/mlocati/docker-php-extension-installer
 ```
 location ~ \.php$ {
-        fastcgi_pass   php:9000;  #这里要改为php7,对应你composer.yml里面的
+        fastcgi_pass   php:9000;  #这里要改为php7,对应你composer.yml里面的，也可以直接为127.0.0.1，那么久不需要修改容器内的端口号
         fastcgi_index  index.php;
         include        fastcgi_params;
         fastcgi_param  PATH_INFO $fastcgi_path_info;
